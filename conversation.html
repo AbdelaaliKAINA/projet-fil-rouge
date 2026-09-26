@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Ma Messagerie - Conversations</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="page-conversation">
 
     <header>
         <h1>Ma Messagerie</h1>
@@ -28,14 +29,24 @@
 
             <ul>
                 <li>
-                    <a href="#">Alex</a>
+                    <a href="#" class="active">
+                        <span class="avatar">A</span>
+                        <span>Alex</span>
+                    </a>
                 </li>
                 <li>
-                    <a href="#">Sarah</a>
-                </li>
-                <li>
-                    <a href="#">Thomas</a>
-                </li>
+    <a href="#">
+        <span class="avatar">S</span>
+        <span>Sarah</span>
+    </a>
+</li>
+
+<li>
+    <a href="#">
+        <span class="avatar">T</span>
+        <span>Thomas</span>
+    </a>
+</li>
             </ul>
         </aside>
 
@@ -43,9 +54,18 @@
         <section>
 
             <header>
-                <h2>Alex</h2>
-                <p>En ligne</p>
-            </header>
+    <div class="profil-conversation">
+        <span class="avatar">A</span>
+
+        <div>
+            <h2>Alex</h2>
+            <p class="statut-en-ligne">
+                <span class="point-en-ligne"></span>
+                En ligne
+            </p>
+        </div>
+    </div>
+</header>
 
             <!-- Liste des messages -->
             <section>
@@ -67,7 +87,7 @@
                     </div>
                 </article>
 
-                <article>
+                <article class="message-moi">
                     <p>
                         <strong>Moi</strong>
                         <time datetime="2026-09-25T14:32">14:32</time>
