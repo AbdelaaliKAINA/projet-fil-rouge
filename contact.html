@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ma Messagerie - Contacts</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Ma Messagerie</h1>
+
+        <nav>
+            <a href="conversation.html">Conversations</a>
+            <a href="contact.html">Contacts</a>
+            <a href="parametre.html">Paramètres</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <h2>Contacts</h2>
+
+        <!-- Recherche d'un contact -->
+        <section>
+            <h3>Rechercher un contact</h3>
+
+            <form>
+                <label for="recherche">Rechercher :</label>
+                <input
+                    type="search"
+                    id="recherche"
+                    name="recherche"
+                    placeholder="Nom du contact"
+                >
+
+                <button type="submit">Rechercher</button>
+            </form>
+        </section>
+
+        <!-- Invitation d'un nouveau contact -->
+        <section>
+            <h3>Ajouter un contact</h3>
+
+            <form>
+                <label for="nouveau-contact">Nom du contact :</label>
+                <input
+                    type="text"
+                    id="nouveau-contact"
+                    name="nouveau-contact"
+                    required
+                >
+
+                <button type="submit">Inviter</button>
+            </form>
+        </section>
+
+        <!-- Invitations reçues -->
+        <section>
+            <h3>Invitations reçues</h3>
+
+            <ul>
+                <li>
+                    Sarah
+                    <button type="button">Accepter</button>
+                    <button type="button">Refuser</button>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Invitations envoyées -->
+        <section>
+            <h3>Invitations envoyées</h3>
+
+            <ul>
+                <li>Thomas - En attente</li>
+            </ul>
+        </section>
+
+        <!-- Liste des contacts -->
+        <section>
+            <h3>Mes contacts</h3>
+
+            <ul>
+                <li>Alex</li>
+                <li>Marie</li>
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

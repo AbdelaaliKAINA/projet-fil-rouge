@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ma Messagerie - Connexion</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Ma Messagerie</h1>
+    </header>
+
+    <main>
+
+        <h2>Connexion</h2>
+
+        <form action="conversation.html" method="get">
+
+            <div>
+                <label for="courriel">Adresse courriel :</label>
+                <input type="email"
+                       id="courriel"
+                       name="courriel"
+                       required>
+            </div>
+
+            <div>
+                <label for="mot-de-passe">Mot de passe :</label>
+                <input type="password"
+                       id="mot-de-passe"
+                       name="mot-de-passe"
+                       required>
+            </div>
+
+            <div>
+                <label>
+                    <input type="checkbox" name="souvenir">
+                    Se souvenir de moi
+                </label>
+            </div>
+
+            <button type="submit">Se connecter</button>
+
+        </form>
+
+        <p>
+            <a href="#">Mot de passe oublié ?</a>
+        </p>
+
+        <section>
+            <h2>Pas encore de compte ?</h2>
+            <button type="button">S'inscrire</button>
+        </section>
+
+    </main>
+
+</body>
+
+</html>
