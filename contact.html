@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Ma Messagerie - Contacts</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="page-contact">
 
     <header>
         <h1>Ma Messagerie</h1>
@@ -20,8 +21,11 @@
 
     <main>
 
+         <div class="contacts-conteneur">
+
         <h2>Contacts</h2>
 
+        <div class="actions-contacts">
         <!-- Recherche d'un contact -->
         <section>
             <h3>Rechercher un contact</h3>
@@ -55,40 +59,73 @@
                 <button type="submit">Inviter</button>
             </form>
         </section>
-
+</div>
         <!-- Invitations reçues -->
-        <section>
-            <h3>Invitations reçues</h3>
+<section class="invitations-recues">
+    <h3>Invitations reçues</h3>
 
-            <ul>
-                <li>
-                    Sarah
-                    <button type="button">Accepter</button>
-                    <button type="button">Refuser</button>
-                </li>
-            </ul>
-        </section>
+    <ul>
+        <li>
+            <div class="contact-identite">
+                <span class="avatar">S</span>
+                <span>Sarah</span>
+            </div>
+
+            <div class="actions-invitation">
+                <button type="button" class="accepter">Accepter</button>
+                <button type="button" class="refuser">Refuser</button>
+            </div>
+        </li>
+    </ul>
+</section>
 
         <!-- Invitations envoyées -->
-        <section>
-            <h3>Invitations envoyées</h3>
+<section class="invitations-envoyees">
+    <h3>Invitations envoyées</h3>
 
-            <ul>
-                <li>Thomas - En attente</li>
-            </ul>
-        </section>
+    <ul>
+        <li>
+            <div class="contact-identite">
+                <span class="avatar">T</span>
+                <span>Thomas</span>
+            </div>
+
+            <span class="statut-attente">En attente</span>
+        </li>
+    </ul>
+</section>
 
         <!-- Liste des contacts -->
-        <section>
-            <h3>Mes contacts</h3>
+<section class="mes-contacts">
+    <h3>Mes contacts</h3>
 
-            <ul>
-                <li>Alex</li>
-                <li>Marie</li>
-            </ul>
-        </section>
+    <ul>
+        <li>
+            <div class="contact-identite">
+                <span class="avatar">A</span>
+                <span>Alex</span>
+            </div>
 
-    </main>
+            <a href="conversation.html" class="bouton-message">
+                Message
+            </a>
+        </li>
+
+        <li>
+            <div class="contact-identite">
+                <span class="avatar">M</span>
+                <span>Marie</span>
+            </div>
+
+            <a href="conversation.html" class="bouton-message">
+                Message
+            </a>
+        </li>
+    </ul>
+</section>
+
+    </div>
+</main>
 
 </body>
 

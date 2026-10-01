@@ -586,3 +586,321 @@ aside li a.active {
     border-color: #2563eb;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
+
+/* ========================================
+   PAGE CONTACTS
+======================================== */
+
+.page-contact .contacts-conteneur {
+    width: 90%;
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 32px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.page-contact .contacts-conteneur > h2 {
+    margin-top: 0;
+    margin-bottom: 28px;
+    color: #17365d;
+    font-size: 28px;
+}
+
+/* Corriger la structure générale de la page Contacts */
+.page-contact main {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 32px 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.page-contact .contacts-conteneur {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Recherche et ajout de contact */
+.page-contact .actions-contacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.page-contact .actions-contacts > section {
+    padding: 24px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.page-contact .actions-contacts h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #17365d;
+}
+
+.page-contact .actions-contacts form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.page-contact .actions-contacts label {
+    font-weight: 600;
+    color: #334155;
+}
+
+.page-contact .actions-contacts input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+.page-contact .actions-contacts input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.page-contact .actions-contacts button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 7px;
+    background-color: #2563eb;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.page-contact .actions-contacts button:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* ============================= */
+/* INVITATIONS REÇUES            */
+/* ============================= */
+
+.page-contact .invitations-recues ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-contact .invitations-recues li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 18px 20px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.page-contact .contact-identite {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.page-contact .actions-invitation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-contact .actions-invitation button {
+    width: auto;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.page-contact .actions-invitation .accepter {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+}
+
+.page-contact .actions-invitation .refuser {
+    background-color: white;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+/* ============================= */
+/* INVITATIONS ENVOYÉES          */
+/* ============================= */
+
+.page-contact .invitations-envoyees ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-contact .invitations-envoyees li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 18px 20px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.page-contact .statut-attente {
+    background-color: #fff7ed;
+    color: #c2410c;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ============================= */
+/* MES CONTACTS                  */
+/* ============================= */
+
+.page-contact .mes-contacts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-contact .mes-contacts li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 16px 20px;
+    margin-bottom: 10px;
+
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.page-contact .bouton-message {
+    display: inline-block;
+    padding: 9px 18px;
+
+    background-color: #2563eb;
+    color: white;
+
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.page-contact .bouton-message:hover {
+    background-color: #1d4ed8;
+}
+
+/* ============================= */
+/* PAGE PARAMÈTRES - MON COMPTE  */
+/* ============================= */
+
+.page-parametre .mon-compte {
+    text-align: left;
+}
+
+.page-parametre .mon-compte h3 {
+    text-align: center;
+}
+
+.page-parametre .profil-parametre {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 18px 20px;
+    margin-top: 20px;
+
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.page-parametre .profil-parametre p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* ============================= */
+/* PAGE PARAMÈTRES - DÉCONNEXION */
+/* ============================= */
+
+.page-parametre .deconnexion {
+    text-align: center;
+}
+
+.page-parametre .bouton-deconnexion {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 18px;
+    padding: 12px 18px;
+
+    background-color: #2563eb;
+    color: white;
+
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.page-parametre .bouton-deconnexion:hover {
+    background-color: #1d4ed8;
+}
+
+/* ================================= */
+/* PAGE PARAMÈTRES - SUPPRESSION     */
+/* ================================= */
+
+.page-parametre .suppression-compte {
+    text-align: center;
+}
+
+.page-parametre .bouton-supprimer {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px 18px;
+
+    background-color: #dc2626;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.page-parametre .bouton-supprimer:hover {
+    background-color: #b91c1c;
+}

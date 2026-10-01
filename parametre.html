@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Ma Messagerie - Paramètres</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="page-parametre">
 
     <header>
         <h1>Ma Messagerie</h1>
@@ -23,31 +24,43 @@
         <h2>Paramètres</h2>
 
         <!-- Informations du compte -->
-        <section>
-            <h3>Mon compte</h3>
-            <p>Utilisateur : Alex</p>
-        </section>
+<section class="mon-compte">
+    <h3>Mon compte</h3>
+
+    <div class="profil-parametre">
+        <span class="avatar">A</span>
+
+        <div>
+            <strong>Alex</strong>
+            <p>Utilisateur de Ma Messagerie</p>
+        </div>
+    </div>
+</section>
 
         <!-- Déconnexion -->
-        <section>
-            <h3>Déconnexion</h3>
+<section class="deconnexion">
+    <h3>Déconnexion</h3>
 
-            <p>Vous pouvez vous déconnecter de votre compte.</p>
+    <p>Vous pouvez vous déconnecter de votre compte.</p>
 
-            <a href="index.html">Se déconnecter</a>
-        </section>
+    <a href="index.html" class="bouton-deconnexion">
+        Se déconnecter
+    </a>
+</section>
 
         <!-- Suppression du compte -->
-        <section>
-            <h3>Supprimer mon compte</h3>
+<section class="suppression-compte">
+    <h3>Supprimer mon compte</h3>
 
-            <p>
-                Cette action permettra de supprimer définitivement
-                votre compte.
-            </p>
+    <p>
+        Cette action permettra de supprimer définitivement
+        votre compte.
+    </p>
 
-            <button type="button">Supprimer mon compte</button>
-        </section>
+    <button type="button" class="bouton-supprimer">
+        Supprimer mon compte
+    </button>
+</section>
 
     </main>
 
