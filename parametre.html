@@ -3,67 +3,74 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ma Messagerie : paramètres du compte.">
     <title>Ma Messagerie - Paramètres</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="page-parametre">
 
-    <header>
+    <!-- En-tête et navigation -->
+    <header class="entete">
         <h1>Ma Messagerie</h1>
 
-        <nav>
+        <nav aria-label="Navigation principale">
             <a href="conversation.html">Conversations</a>
             <a href="contact.html">Contacts</a>
-            <a href="parametre.html">Paramètres</a>
+            <a href="parametre.html" aria-current="page">Paramètres</a>
         </nav>
     </header>
 
-    <main>
+    <main class="carte">
 
         <h2>Paramètres</h2>
 
-        <!-- Informations du compte -->
-<section class="mon-compte">
-    <h3>Mon compte</h3>
+        <!-- Informations du compte (remplies par js/parametre.js) -->
+        <section class="bloc-parametre" aria-labelledby="titre-compte">
+            <h3 id="titre-compte">Mon compte</h3>
 
-    <div class="profil-parametre">
-        <span class="avatar">A</span>
+            <div class="profil-parametre">
+                <span class="avatar" id="avatar-utilisateur" aria-hidden="true">?</span>
+                <div>
+                    <strong id="nom-utilisateur">Chargement...</strong>
+                    <p id="courriel-utilisateur"></p>
+                </div>
+            </div>
 
-        <div>
-            <strong>Alex</strong>
-            <p>Utilisateur de Ma Messagerie</p>
-        </div>
-    </div>
-</section>
+            <!-- Modification du nom affiché -->
+            <form id="form-nom" class="form-nom">
+                <label for="nouveau-nom">Nom affiché :</label>
+                <input type="text" id="nouveau-nom" name="nom" maxlength="40" required>
+                <button type="submit" class="bouton bouton-secondaire">Enregistrer</button>
+            </form>
+            <p id="message-nom" class="message-info" role="status"></p>
+        </section>
 
         <!-- Déconnexion -->
-<section class="deconnexion">
-    <h3>Déconnexion</h3>
-
-    <p>Vous pouvez vous déconnecter de votre compte.</p>
-
-    <a href="index.html" class="bouton-deconnexion">
-        Se déconnecter
-    </a>
-</section>
+        <section class="bloc-parametre" aria-labelledby="titre-deconnexion">
+            <h3 id="titre-deconnexion">Déconnexion</h3>
+            <p>Vous pouvez vous déconnecter de votre compte.</p>
+            <button type="button" id="bouton-deconnexion" class="bouton bouton-principal">
+                Se déconnecter
+            </button>
+        </section>
 
         <!-- Suppression du compte -->
-<section class="suppression-compte">
-    <h3>Supprimer mon compte</h3>
-
-    <p>
-        Cette action permettra de supprimer définitivement
-        votre compte.
-    </p>
-
-    <button type="button" class="bouton-supprimer">
-        Supprimer mon compte
-    </button>
-</section>
+        <section class="bloc-parametre" aria-labelledby="titre-suppression">
+            <h3 id="titre-suppression">Supprimer mon compte</h3>
+            <p>Cette action supprime définitivement votre compte, vos contacts et vos messages.</p>
+            <button type="button" id="bouton-supprimer" class="bouton bouton-danger">
+                Supprimer mon compte
+            </button>
+        </section>
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/commun.js"></script>
+    <script src="js/parametre.js"></script>
 </body>
 
 </html>
