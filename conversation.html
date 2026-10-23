@@ -3,131 +3,85 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ma Messagerie : vos conversations en temps réel.">
     <title>Ma Messagerie - Conversations</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="page-conversation">
 
-    <header>
+    <!-- En-tête et navigation (identiques sur toutes les pages) -->
+    <header class="entete">
         <h1>Ma Messagerie</h1>
 
-        <nav>
-            <a href="conversation.html">Conversations</a>
+        <nav aria-label="Navigation principale">
+            <a href="conversation.html" aria-current="page">Conversations</a>
             <a href="contact.html">Contacts</a>
             <a href="parametre.html">Paramètres</a>
         </nav>
     </header>
 
-    <main>
+    <main class="messagerie">
 
-        <!-- Liste des conversations -->
-        <aside>
-            <h2>Conversations</h2>
+        <!-- Colonne de gauche : liste des conversations -->
+        <aside class="liste-conversations" aria-labelledby="titre-conversations">
+            <h2 id="titre-conversations">Conversations</h2>
 
-            <button type="button">Nouvelle conversation</button>
+            <!-- Démarrer une conversation avec un contact accepté -->
+            <form id="form-nouvelle-conversation" class="nouvelle-conversation">
+                <label for="choix-contact">Nouvelle conversation :</label>
+                <select id="choix-contact" name="contact" required>
+                    <option value="">Chargement...</option>
+                </select>
+                <button type="submit" id="bouton-ouvrir" class="bouton bouton-principal">Ouvrir</button>
 
-            <ul>
-                <li>
-                    <a href="#" class="active">
-                        <span class="avatar">A</span>
-                        <span>Alex</span>
-                    </a>
-                </li>
+                <!-- Affiché quand aucun contact n'est disponible -->
+                <p id="aide-nouvelle-conversation" class="message-info" hidden>
+                    Aucun nouveau contact.
+                    <a href="contact.html">Ajouter un contact</a>
+                </p>
+            </form>
 
-                <li>
-                    <a href="#">
-                        <span class="avatar">S</span>
-                        <span>Sarah</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="avatar">T</span>
-                        <span>Thomas</span>
-                    </a>
-                </li>
-            </ul>
+            <!-- Rempli par js/conversation.js -->
+            <ul id="liste-conversations"></ul>
         </aside>
 
-        <!-- Conversation actuellement ouverte -->
-        <section>
+        <!-- Colonne de droite : conversation ouverte -->
+        <section class="conversation" aria-labelledby="nom-contact">
 
-            <header>
-                <div class="profil-conversation">
-                    <span class="avatar">A</span>
-
-                    <div>
-                        <h2>Alex</h2>
-
-                        <p class="statut-en-ligne">
-                            <span class="point-en-ligne"></span>
-                            En ligne
-                        </p>
-                    </div>
+            <header class="profil-conversation">
+                <span class="avatar" id="avatar-contact" aria-hidden="true">?</span>
+                <div>
+                    <h2 id="nom-contact">Aucune conversation</h2>
+                    <!-- Indicateur en ligne / hors ligne (Supabase Presence) -->
+                    <p id="statut-contact" class="statut hors-ligne" hidden>
+                        <span class="point-statut"></span>
+                        <span id="texte-statut">Hors ligne</span>
+                    </p>
                 </div>
             </header>
 
-            <!-- Liste des messages -->
-            <section>
-                <h3>Messages</h3>
-
-                <!-- Message reçu -->
-                <article>
-                    <p>
-                        <strong>Alex</strong>
-                        <time datetime="2026-09-25T14:31">14:31</time>
-                    </p>
-
-                    <p>Salut ! Tu viens au cours demain ?</p>
-
-                    <!-- Fonctionnalité supplémentaire : réactions -->
-                    <div>
-                        <button type="button">👍</button>
-                        <button type="button">❤️</button>
-                        <button type="button">😂</button>
-                    </div>
-                </article>
-
-                <!-- Message envoyé -->
-                <article class="message-moi">
-                    <p>
-                        <strong>Moi</strong>
-                        <time datetime="2026-09-25T14:32">14:32</time>
-                    </p>
-
-                    <p>Oui, je serai là !</p>
-
-                    <!-- Fonctionnalité supplémentaire : réactions -->
-                    <div>
-                        <button type="button">👍</button>
-                        <button type="button">❤️</button>
-                        <button type="button">😂</button>
-                    </div>
-                </article>
-
-            </section>
+            <!-- Liste des messages, dans l'ordre chronologique -->
+            <ol id="liste-messages" class="liste-messages" aria-live="polite"></ol>
 
             <!-- Formulaire d'envoi d'un message -->
-            <form>
-                <label for="message">Message :</label>
-
-                <input
-                    type="text"
-                    id="message"
-                    name="message"
-                    placeholder="Écrire un message..."
-                    required
-                >
-
-                <button type="submit">Envoyer</button>
+            <form id="form-message" class="form-message" hidden>
+                <label for="message" class="visuellement-cache">Message :</label>
+                <input type="text" id="message" name="message"
+                       placeholder="Écrire un message..." autocomplete="off"
+                       maxlength="1000" required>
+                <button type="submit" class="bouton bouton-principal">Envoyer</button>
             </form>
 
         </section>
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/commun.js"></script>
+    <script src="js/conversation.js"></script>
 </body>
 
 </html>
