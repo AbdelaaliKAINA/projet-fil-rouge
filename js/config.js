@@ -11,5 +11,5 @@
    Ne JAMAIS mettre ici la clé « service_role ».
    ========================================================== */
 
-const SUPABASE_URL = "https://VOTRE-PROJET.supabase.co";
-const SUPABASE_CLE_ANON = "VOTRE-CLE-ANON";
+const SUPABASE_URL = "https://kxqkpumuuothwljzywlg.supabase.co";
+const SUPABASE_CLE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4cWtwdW11dW90aHdsanp5d2xnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODg0NTYsImV4cCI6MjEwODM2NDQ1Nn0.9upnprM_-FeND_0-BVCTNQhVvqw3TX0sQwOwZ5AH5Hk";
