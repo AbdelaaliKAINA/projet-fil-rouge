@@ -3,130 +3,86 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ma Messagerie : gestion des contacts et des invitations.">
     <title>Ma Messagerie - Contacts</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="page-contact">
 
-    <header>
+    <!-- En-tête et navigation -->
+    <header class="entete">
         <h1>Ma Messagerie</h1>
 
-        <nav>
+        <nav aria-label="Navigation principale">
             <a href="conversation.html">Conversations</a>
-            <a href="contact.html">Contacts</a>
+            <a href="contact.html" aria-current="page">Contacts</a>
             <a href="parametre.html">Paramètres</a>
         </nav>
     </header>
 
-    <main>
-
-         <div class="contacts-conteneur">
+    <main class="carte carte-large">
 
         <h2>Contacts</h2>
 
         <div class="actions-contacts">
-        <!-- Recherche d'un contact -->
-        <section>
-            <h3>Rechercher un contact</h3>
 
-            <form>
-                <label for="recherche">Rechercher :</label>
-                <input
-                    type="search"
-                    id="recherche"
-                    name="recherche"
-                    placeholder="Nom du contact"
-                >
+            <!-- Recherche parmi les contacts et invitations -->
+            <section class="bloc" aria-labelledby="titre-recherche">
+                <h3 id="titre-recherche">Rechercher un contact</h3>
 
-                <button type="submit">Rechercher</button>
-            </form>
+                <form id="form-recherche" role="search">
+                    <label for="recherche">Nom ou courriel :</label>
+                    <input type="search" id="recherche" name="recherche"
+                           placeholder="Ex. : Marie" autocomplete="off">
+                    <button type="submit" class="bouton bouton-principal">Rechercher</button>
+                </form>
+
+                <!-- Résultats annoncés aux lecteurs d'écran -->
+                <div id="resultat-recherche" class="resultat-recherche" aria-live="polite"></div>
+            </section>
+
+            <!-- Envoi d'une invitation à un compte existant -->
+            <section class="bloc" aria-labelledby="titre-invitation">
+                <h3 id="titre-invitation">Ajouter un contact</h3>
+
+                <form id="form-invitation" novalidate>
+                    <label for="courriel-contact">Courriel de la personne :</label>
+                    <input type="email" id="courriel-contact" name="courriel-contact"
+                           placeholder="nom@exemple.com" autocomplete="off" required>
+                    <button type="submit" class="bouton bouton-principal">Inviter</button>
+                </form>
+
+                <p id="message-invitation" class="message-info" role="status"></p>
+            </section>
+
+        </div>
+
+        <!-- Invitations reçues : accepter ou refuser -->
+        <section class="liste-section" aria-labelledby="titre-recues">
+            <h3 id="titre-recues">Invitations reçues</h3>
+            <ul id="liste-invitations-recues" class="liste-personnes"></ul>
         </section>
 
-        <!-- Invitation d'un nouveau contact -->
-        <section>
-            <h3>Ajouter un contact</h3>
-
-            <form>
-                <label for="nouveau-contact">Nom du contact :</label>
-                <input
-                    type="text"
-                    id="nouveau-contact"
-                    name="nouveau-contact"
-                    required
-                >
-
-                <button type="submit">Inviter</button>
-            </form>
+        <!-- Invitations envoyées : en attente de réponse -->
+        <section class="liste-section" aria-labelledby="titre-envoyees">
+            <h3 id="titre-envoyees">Invitations envoyées</h3>
+            <ul id="liste-invitations-envoyees" class="liste-personnes"></ul>
         </section>
-</div>
-        <!-- Invitations reçues -->
-<section class="invitations-recues">
-    <h3>Invitations reçues</h3>
 
-    <ul>
-        <li>
-            <div class="contact-identite">
-                <span class="avatar">S</span>
-                <span>Sarah</span>
-            </div>
+        <!-- Contacts acceptés -->
+        <section class="liste-section" aria-labelledby="titre-mes-contacts">
+            <h3 id="titre-mes-contacts">Mes contacts</h3>
+            <ul id="liste-mes-contacts" class="liste-personnes"></ul>
+        </section>
 
-            <div class="actions-invitation">
-                <button type="button" class="accepter">Accepter</button>
-                <button type="button" class="refuser">Refuser</button>
-            </div>
-        </li>
-    </ul>
-</section>
+    </main>
 
-        <!-- Invitations envoyées -->
-<section class="invitations-envoyees">
-    <h3>Invitations envoyées</h3>
-
-    <ul>
-        <li>
-            <div class="contact-identite">
-                <span class="avatar">T</span>
-                <span>Thomas</span>
-            </div>
-
-            <span class="statut-attente">En attente</span>
-        </li>
-    </ul>
-</section>
-
-        <!-- Liste des contacts -->
-<section class="mes-contacts">
-    <h3>Mes contacts</h3>
-
-    <ul>
-        <li>
-            <div class="contact-identite">
-                <span class="avatar">A</span>
-                <span>Alex</span>
-            </div>
-
-            <a href="conversation.html" class="bouton-message">
-                Message
-            </a>
-        </li>
-
-        <li>
-            <div class="contact-identite">
-                <span class="avatar">M</span>
-                <span>Marie</span>
-            </div>
-
-            <a href="conversation.html" class="bouton-message">
-                Message
-            </a>
-        </li>
-    </ul>
-</section>
-
-    </div>
-</main>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/commun.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 
 </html>
