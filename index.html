@@ -3,60 +3,124 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ma Messagerie : connexion et inscription.">
     <title>Ma Messagerie - Connexion</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="page-connexion">
 
-    <header>
+    <!-- En-tête du site -->
+    <header class="entete">
         <h1>Ma Messagerie</h1>
     </header>
 
-    <main>
+    <main class="carte">
 
-        <h2>Connexion</h2>
+        <!-- Formulaire de connexion -->
+        <section id="section-connexion" aria-labelledby="titre-connexion">
+            <h2 id="titre-connexion">Connexion</h2>
 
-        <form action="conversation.html" method="get">
+            <form id="form-connexion" novalidate>
+                <div class="champ">
+                    <label for="courriel">Adresse courriel :</label>
+                    <input type="email" id="courriel" name="courriel"
+                           autocomplete="email" required>
+                </div>
 
-            <div>
-                <label for="courriel">Adresse courriel :</label>
-                <input type="email"
-                       id="courriel"
-                       name="courriel"
-                       required>
-            </div>
+                <div class="champ">
+                    <label for="mot-de-passe">Mot de passe :</label>
+                    <input type="password" id="mot-de-passe" name="mot-de-passe"
+                           autocomplete="current-password" minlength="6" required>
+                </div>
 
-            <div>
-                <label for="mot-de-passe">Mot de passe :</label>
-                <input type="password"
-                       id="mot-de-passe"
-                       name="mot-de-passe"
-                       required>
-            </div>
+                <div class="champ champ-case">
+                    <label>
+                        <input type="checkbox" id="se-souvenir" name="se-souvenir" checked>
+                        Se souvenir de moi
+                    </label>
+                </div>
 
-            <div>
-                <label>
-                    <input type="checkbox" name="souvenir">
-                    Se souvenir de moi
-                </label>
-            </div>
+                <!-- Message d'erreur (lu par les lecteurs d'écran) -->
+                <p id="erreur-connexion" class="message-erreur" role="alert"></p>
 
-            <button type="submit">Se connecter</button>
+                <button type="submit" class="bouton bouton-principal">Se connecter</button>
+            </form>
 
-        </form>
+            <!-- Mot de passe oublié : envoi d'un lien par courriel -->
+            <details class="mot-de-passe-oublie">
+                <summary>Mot de passe oublié ?</summary>
 
-        <p>
-            <a href="#">Mot de passe oublié ?</a>
-        </p>
+                <form id="form-oubli" novalidate>
+                    <label for="courriel-oubli">Adresse courriel du compte :</label>
+                    <input type="email" id="courriel-oubli" name="courriel"
+                           autocomplete="email" required>
+                    <button type="submit" class="bouton bouton-secondaire">
+                        Recevoir un lien de réinitialisation
+                    </button>
+                    <p id="message-oubli" class="message-info" role="status"></p>
+                </form>
+            </details>
+        </section>
 
-        <section>
-            <h2>Pas encore de compte ?</h2>
-            <button type="button">S'inscrire</button>
+        <!-- Formulaire d'inscription -->
+        <section id="section-inscription" class="inscription" aria-labelledby="titre-inscription">
+            <h2 id="titre-inscription">Pas encore de compte ?</h2>
+
+            <details id="details-inscription">
+                <summary class="bouton bouton-secondaire">S'inscrire</summary>
+
+                <form id="form-inscription" novalidate>
+                    <div class="champ">
+                        <label for="nom-inscription">Nom :</label>
+                        <input type="text" id="nom-inscription" name="nom"
+                               autocomplete="name" maxlength="40" required>
+                    </div>
+
+                    <div class="champ">
+                        <label for="courriel-inscription">Adresse courriel :</label>
+                        <input type="email" id="courriel-inscription" name="courriel"
+                               autocomplete="email" required>
+                    </div>
+
+                    <div class="champ">
+                        <label for="mdp-inscription">Mot de passe (6 caractères minimum) :</label>
+                        <input type="password" id="mdp-inscription" name="mot-de-passe"
+                               autocomplete="new-password" minlength="6" required>
+                    </div>
+
+                    <p id="erreur-inscription" class="message-erreur" role="alert"></p>
+
+                    <button type="submit" class="bouton bouton-principal">Créer mon compte</button>
+                </form>
+            </details>
+        </section>
+
+        <!-- Nouveau mot de passe : affiché après le clic sur le lien reçu par courriel -->
+        <section id="section-nouveau-mdp" aria-labelledby="titre-nouveau-mdp" hidden>
+            <h2 id="titre-nouveau-mdp">Nouveau mot de passe</h2>
+
+            <form id="form-nouveau-mdp" novalidate>
+                <div class="champ">
+                    <label for="nouveau-mdp">Nouveau mot de passe (6 caractères minimum) :</label>
+                    <input type="password" id="nouveau-mdp" name="nouveau-mdp"
+                           autocomplete="new-password" minlength="6" required>
+                </div>
+
+                <p id="erreur-nouveau-mdp" class="message-erreur" role="alert"></p>
+
+                <button type="submit" class="bouton bouton-principal">Enregistrer</button>
+            </form>
         </section>
 
     </main>
 
+    <!-- Scripts : bibliothèque Supabase, configuration, fonctions partagées, page -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/commun.js"></script>
+    <script src="js/connexion.js"></script>
 </body>
 
 </html>
