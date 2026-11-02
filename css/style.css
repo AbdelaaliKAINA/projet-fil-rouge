@@ -3,10 +3,10 @@
    Sommaire :
    1. Variables (couleurs, rayons, ombres)
    2. Base
-   3. En-tête et navigation
+   3. En-tête, logo et navigation
    4. Cartes et formulaires
    5. Boutons
-   6. Page Connexion
+   6. Page d'accueil et connexion
    7. Page Conversations
    8. Réactions (fonctionnalité supplémentaire)
    9. Page Contacts
@@ -18,27 +18,30 @@
 /* ===== 1. Variables ===== */
 
 :root {
-    --bleu-fonce: #1e3a5f;
+    --bleu-fonce: #0f2a5c;
     --bleu: #2563eb;
     --bleu-survol: #1d4ed8;
     --bleu-clair: #dbeafe;
+    --bleu-pale: #eff5ff;
+    --degrade: linear-gradient(135deg, #2f7bf6 0%, #1d4ed8 100%);
     --vert: #16a34a;
     --rouge: #dc2626;
     --rouge-survol: #b91c1c;
     --orange-fond: #fff7ed;
     --orange-texte: #c2410c;
 
-    --texte: #1f2937;
+    --texte: #0f172a;
     --texte-doux: #64748b;
-    --fond-page: #f3f6f9;
+    --fond-page: #f4f7fc;
     --fond-clair: #f8fafc;
     --blanc: #ffffff;
     --bordure: #e2e8f0;
-    --bordure-champ: #cbd5e1;
+    --bordure-champ: #d5dde8;
 
-    --rayon: 8px;
-    --rayon-grand: 12px;
-    --ombre: 0 5px 20px rgba(0, 0, 0, 0.08);
+    --rayon: 10px;
+    --rayon-grand: 16px;
+    --ombre: 0 10px 30px rgba(15, 42, 92, 0.08);
+    --ombre-forte: 0 24px 60px rgba(15, 42, 92, 0.14);
 }
 
 
@@ -51,13 +54,25 @@
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
     background-color: var(--fond-page);
     color: var(--texte);
 }
 
 a {
     color: var(--bleu);
+}
+
+/* Icônes SVG intégrées : taille du texte, couleur du texte */
+.icone {
+    width: 1.15em;
+    height: 1.15em;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 /* L'attribut hidden doit toujours masquer l'élément */
@@ -82,51 +97,86 @@ a {
 }
 
 
-/* ===== 3. En-tête et navigation ===== */
+/* ===== 3. En-tête, logo et navigation ===== */
 
 .entete {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    min-height: 80px;
-    padding: 0 40px;
-    background-color: var(--bleu-fonce);
-    color: var(--blanc);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    min-height: 72px;
+    padding: 0 48px;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--bordure);
 }
 
-.entete h1 {
+/* Logo : bulle de discussion + nom du site */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin: 0;
-    font-size: 28px;
+    color: var(--bleu-fonce);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo-icone {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--degrade);
+    color: var(--blanc);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.logo-icone svg {
+    width: 22px;
+    height: 22px;
 }
 
 .entete nav {
     display: flex;
-    gap: 28px;
+    gap: 8px;
 }
 
 .entete nav a {
-    padding: 8px 0;
-    color: var(--blanc);
-    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: var(--rayon);
+    color: #334155;
+    font-size: 15px;
     font-weight: 600;
     text-decoration: none;
-    border-bottom: 3px solid transparent;
 }
 
 .entete nav a:hover {
-    color: var(--bleu-clair);
+    background-color: var(--bleu-pale);
+    color: var(--bleu);
 }
 
 /* Page actuelle (indiquée par aria-current="page") */
 .entete nav a[aria-current="page"] {
-    border-bottom-color: var(--blanc);
-}
-
-/* Page de connexion : titre centré, sans navigation */
-.page-connexion .entete {
-    justify-content: center;
+    background-color: var(--bleu-pale);
+    color: var(--bleu);
 }
 
 
@@ -139,6 +189,7 @@ a {
     margin: 50px auto;
     padding: 35px 40px;
     background-color: var(--blanc);
+    border: 1px solid var(--bordure);
     border-radius: var(--rayon-grand);
     box-shadow: var(--ombre);
 }
@@ -168,18 +219,25 @@ input[type="password"],
 input[type="search"],
 select {
     width: 100%;
-    padding: 11px 12px;
+    padding: 12px 14px;
     border: 1px solid var(--bordure-champ);
     border-radius: var(--rayon);
+    background-color: var(--blanc);
+    color: var(--texte);
     font-size: 15px;
     font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input::placeholder {
+    color: #94a3b8;
 }
 
 input:focus,
 select:focus {
     outline: none;
     border-color: var(--bleu);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 /* Case « Se souvenir de moi » : case et texte sur la même ligne */
@@ -188,6 +246,13 @@ select:focus {
     align-items: center;
     gap: 8px;
     font-weight: normal;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--bleu);
 }
 
 .message-erreur {
@@ -215,8 +280,11 @@ select:focus {
 /* ===== 5. Boutons ===== */
 
 .bouton {
-    display: inline-block;
-    padding: 11px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 18px;
     border: 1px solid transparent;
     border-radius: var(--rayon);
     font-family: inherit;
@@ -225,22 +293,27 @@ select:focus {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 
 .bouton-principal {
-    background-color: var(--bleu);
+    background: var(--degrade);
     color: var(--blanc);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
 }
 
 .bouton-principal:hover {
-    background-color: var(--bleu-survol);
+    background: var(--bleu-survol);
+    transform: translateY(-1px);
 }
 
 /* Bouton désactivé : grisé et non cliquable */
 .bouton:disabled,
 .bouton:disabled:hover {
-    background-color: var(--bordure);
+    background: var(--bordure);
     color: var(--texte-doux);
+    box-shadow: none;
+    transform: none;
     cursor: not-allowed;
 }
 
@@ -263,62 +336,509 @@ select:focus {
     background-color: var(--rouge-survol);
 }
 
-
-/* ===== 6. Page Connexion ===== */
-
-.page-connexion form .bouton,
-.page-connexion summary.bouton {
-    width: 100%;
-}
-
-.mot-de-passe-oublie {
-    margin-top: 18px;
-    text-align: center;
-}
-
-.mot-de-passe-oublie summary {
+/* Bouton qui ressemble à un lien */
+.bouton-lien {
+    padding: 0;
+    border: none;
+    background: none;
     color: var(--bleu);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
 }
 
-/* Formulaire « mot de passe oublié » dans l'accordéon */
-.mot-de-passe-oublie form {
+.bouton-lien:hover {
+    text-decoration: underline;
+}
+
+
+/* ===== 6. Page d'accueil et connexion ===== */
+
+/* Fond bleuté avec une vague décorative en bas */
+.page-connexion {
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(circle at 15% 20%, #e3edff 0, transparent 45%),
+        linear-gradient(180deg, #f7faff 0%, #eaf1fd 100%);
+    overflow-x: hidden;
+}
+
+.page-connexion::after {
+    content: "";
+    position: fixed;
+    left: -12%;
+    bottom: -150px;
+    z-index: -1;
+    width: 42%;
+    height: 240px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    opacity: 0.85;
+}
+
+/* Trois zones : présentation, illustration, carte de connexion */
+.accueil {
+    flex: 1;
     display: grid;
-    gap: 10px;
-    margin-top: 14px;
-    text-align: left;
+    grid-template-columns: 1fr 1fr 440px;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px;
 }
 
-.mot-de-passe-oublie label {
-    margin: 0;
+/* --- Présentation --- */
+.pastille {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 22px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: var(--bleu-clair);
+    color: var(--bleu-fonce);
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.inscription {
-    margin-top: 28px;
-    padding-top: 22px;
-    border-top: 1px solid var(--bordure);
-    text-align: center;
+.pastille .icone {
+    color: var(--bleu);
 }
 
-.inscription h2 {
+.titre-accueil {
+    margin: 0 0 18px;
+    color: var(--bleu-fonce);
+    font-size: clamp(38px, 4.4vw, 58px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+.sous-titre {
+    margin: 0 0 32px;
+    color: #334155;
     font-size: 18px;
+    line-height: 1.6;
 }
 
-/* Le résumé de l'accordéon ressemble à un bouton */
-.inscription summary {
-    display: block;
+.atouts {
+    display: grid;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
     list-style: none;
-    background-color: #e8eef5;
+}
+
+.atouts li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.atout-icone {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background-color: var(--blanc);
+    color: var(--bleu);
+    box-shadow: var(--ombre);
+}
+
+.atout-icone .icone {
+    width: 24px;
+    height: 24px;
+}
+
+.atouts strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--bleu-fonce);
+    font-size: 17px;
+}
+
+.atouts span {
+    color: var(--texte-doux);
+    font-size: 15px;
+}
+
+/* --- Illustration : aperçu de l'application en HTML/CSS --- */
+.illustration {
+    position: relative;
+    height: 420px;
+}
+
+/* Cercle bleu pâle derrière l'aperçu */
+.illustration::before {
+    content: "";
+    position: absolute;
+    inset: 20px 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #dbe8ff 0%, rgba(219, 232, 255, 0) 70%);
+}
+
+.bulle-flottante {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 86px;
+    height: 74px;
+    border-radius: 40px 40px 40px 10px;
+    background: var(--degrade);
+    color: var(--blanc);
+    box-shadow: 0 16px 30px rgba(37, 99, 235, 0.35);
+    animation: flotter 4s ease-in-out infinite;
+}
+
+.bulle-flottante svg {
+    width: 44px;
+    height: 14px;
+}
+
+@keyframes flotter {
+    50% { transform: translateY(-10px); }
+}
+
+/* Fenêtre « ordinateur » */
+.fenetre-demo {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 50px;
+    z-index: 1;
+    overflow: hidden;
+    border: 8px solid #1e293b;
+    border-radius: 14px;
+    background-color: var(--blanc);
+    box-shadow: var(--ombre-forte);
+}
+
+.demo-barre {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 10px;
+    background: var(--degrade);
+    color: var(--blanc);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.demo-corps {
+    display: grid;
+    grid-template-columns: 34% 1fr;
+    height: 190px;
+}
+
+.demo-liste {
+    padding: 8px;
+    background-color: var(--fond-clair);
+    border-right: 1px solid var(--bordure);
+}
+
+.demo-contact {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.demo-contact i {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #93c5fd;
+}
+
+.demo-contact:nth-child(2) i { background-color: #fbbf24; }
+.demo-contact:nth-child(3) i { background-color: #34d399; }
+.demo-contact:nth-child(4) i { background-color: #f472b6; }
+
+.demo-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+}
+
+.demo-msg {
+    max-width: 75%;
+    margin: 0;
+    padding: 6px 9px;
+    border-radius: 10px;
+    background-color: #eef2f7;
+    font-size: 9px;
+}
+
+.demo-msg.envoye {
+    align-self: flex-end;
+    background: var(--degrade);
+    color: var(--blanc);
+}
+
+.demo-saisie {
+    height: 18px;
+    margin-top: auto;
+    border: 1px solid var(--bordure);
+    border-radius: 9px;
+}
+
+/* Socle de l'ordinateur */
+.socle-demo {
+    position: absolute;
+    top: 314px;
+    left: -24px;
+    right: 26px;
+    z-index: 1;
+    height: 12px;
+    border-radius: 0 0 14px 14px;
+    background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+}
+
+/* Téléphone */
+.telephone-demo {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 130px;
+    height: 240px;
+    padding: 26px 10px 10px;
+    border: 7px solid #1e293b;
+    border-radius: 24px;
+    background-color: var(--blanc);
+    box-shadow: var(--ombre-forte);
+}
+
+.telephone-demo .demo-msg {
+    max-width: 85%;
+}
+
+/* --- Carte de connexion --- */
+.carte-connexion {
+    padding: 36px;
+    background-color: var(--blanc);
+    border: 1px solid var(--bordure);
+    border-radius: 22px;
+    box-shadow: var(--ombre-forte);
+}
+
+.carte-entete {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.carte-entete-icone {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: var(--degrade);
+    color: var(--blanc);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.3);
+}
+
+.carte-entete-icone .icone {
+    width: 26px;
+    height: 26px;
+}
+
+.carte-entete h2 {
+    margin: 0 0 4px;
+    color: var(--bleu-fonce);
+    font-size: 28px;
+    letter-spacing: -0.02em;
+}
+
+.carte-entete p {
+    margin: 0;
+    color: var(--texte-doux);
+    font-size: 15px;
+}
+
+/* Étiquette avec icône */
+.carte-connexion label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: var(--bleu-fonce);
 }
 
-.inscription summary::-webkit-details-marker {
-    display: none;
+/* Champ mot de passe avec bouton « afficher » */
+.champ-mdp {
+    position: relative;
 }
 
-.inscription form {
-    margin-top: 20px;
-    text-align: left;
+.champ-mdp input {
+    padding-right: 48px;
+}
+
+.bouton-oeil {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    color: var(--texte-doux);
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.bouton-oeil:hover {
+    background-color: var(--fond-clair);
+    color: var(--bleu);
+}
+
+/* Ligne « Se souvenir de moi » + « Mot de passe oublié ? » */
+.ligne-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    margin-bottom: 20px;
+}
+
+.ligne-options .champ-case,
+.ligne-options label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.carte-connexion form .bouton {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 16px;
+}
+
+/* Séparateur « ou » */
+.separateur {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 24px 0 14px;
+    color: var(--texte-doux);
+    font-size: 14px;
+}
+
+.separateur::before,
+.separateur::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--bordure);
+}
+
+.question-compte {
+    margin: 0 0 12px;
+    color: #334155;
+    text-align: center;
+}
+
+.bouton-contour {
+    width: 100%;
+    padding: 13px 18px;
+    background-color: var(--blanc);
+    border-color: #bfd3f5;
+    color: var(--bleu-fonce);
+    font-size: 16px;
+}
+
+.bouton-contour:hover {
+    background-color: var(--bleu-pale);
+    border-color: var(--bleu);
+}
+
+/* Lien « Retour à la connexion » */
+.retour {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.retour .bouton-lien {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pied-accueil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0 16px 28px;
+    color: #334155;
+    font-size: 14px;
+}
+
+/* Écran moyen : on retire l'illustration */
+@media (max-width: 1150px) {
+    .accueil {
+        grid-template-columns: 1fr 420px;
+    }
+
+    .illustration {
+        display: none;
+    }
+}
+
+/* Tablette et téléphone : une seule colonne, connexion en premier */
+@media (max-width: 860px) {
+    .accueil {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 24px 16px;
+    }
+
+    .carte-connexion {
+        order: -1;
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 26px 20px;
+    }
+
+    .presentation {
+        text-align: center;
+    }
+
+    .atouts {
+        max-width: 420px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .page-connexion::after {
+        display: none;
+    }
 }
 
 
@@ -721,24 +1241,26 @@ select:focus {
 
 @media (max-width: 750px) {
 
-    /* En-tête sur deux lignes */
+    /* En-tête : logo au-dessus, navigation en dessous */
     .entete {
+        position: static;
         flex-direction: column;
         justify-content: center;
         gap: 10px;
-        padding: 16px;
+        padding: 14px 12px;
     }
 
-    .entete h1 {
-        font-size: 24px;
+    .logo {
+        font-size: 20px;
     }
 
     .entete nav {
-        gap: 18px;
+        gap: 4px;
     }
 
     .entete nav a {
-        font-size: 15px;
+        padding: 8px 10px;
+        font-size: 14px;
     }
 
     .carte {

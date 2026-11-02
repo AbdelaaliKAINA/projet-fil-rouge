@@ -4,117 +4,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Ma Messagerie : connexion et inscription.">
+    <meta name="description" content="Ma Messagerie : messagerie instantanée simple et sécurisée. Connexion et inscription.">
     <title>Ma Messagerie - Connexion</title>
+    <!-- Icône de l'onglet : bulle de discussion -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%232563eb' d='M12 3C6.5 3 2 6.8 2 11.5c0 2.3 1.1 4.4 2.9 5.9L4 21l4.2-2.1c1.2.4 2.5.6 3.8.6 5.5 0 10-3.8 10-8.5S17.5 3 12 3z'/%3E%3C/svg%3E">
+    <!-- Police Inter (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="page-connexion">
 
-    <!-- En-tête du site -->
+    <!-- En-tête : logo du site -->
     <header class="entete">
-        <h1>Ma Messagerie</h1>
+        <a class="logo" href="index.html">
+            <span class="logo-icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.8 2 11.5c0 2.3 1.1 4.4 2.9 5.9L4 21l4.2-2.1c1.2.4 2.5.6 3.8.6 5.5 0 10-3.8 10-8.5S17.5 3 12 3z"/><circle cx="8" cy="11.5" r="1.3" fill="#2563eb"/><circle cx="12" cy="11.5" r="1.3" fill="#2563eb"/><circle cx="16" cy="11.5" r="1.3" fill="#2563eb"/></svg>
+            </span>
+            Ma Messagerie
+        </a>
     </header>
 
-    <main class="carte">
+    <main class="accueil">
 
-        <!-- Formulaire de connexion -->
-        <section id="section-connexion" aria-labelledby="titre-connexion">
-            <h2 id="titre-connexion">Connexion</h2>
+        <!-- Présentation de l'application -->
+        <section class="presentation" aria-labelledby="titre-accueil">
+            <p class="pastille">
+                <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                Messagerie sécurisée
+            </p>
 
-            <form id="form-connexion" novalidate>
-                <div class="champ">
-                    <label for="courriel">Adresse courriel :</label>
-                    <input type="email" id="courriel" name="courriel"
-                           autocomplete="email" required>
-                </div>
+            <h1 id="titre-accueil" class="titre-accueil">Ma Messagerie</h1>
 
-                <div class="champ">
-                    <label for="mot-de-passe">Mot de passe :</label>
-                    <input type="password" id="mot-de-passe" name="mot-de-passe"
-                           autocomplete="current-password" minlength="6" required>
-                </div>
+            <p class="sous-titre">
+                Communiquez, échangez et restez connecté avec vos contacts,
+                en toute simplicité et sécurité.
+            </p>
 
-                <div class="champ champ-case">
-                    <label>
-                        <input type="checkbox" id="se-souvenir" name="se-souvenir" checked>
-                        Se souvenir de moi
-                    </label>
-                </div>
-
-                <!-- Message d'erreur (lu par les lecteurs d'écran) -->
-                <p id="erreur-connexion" class="message-erreur" role="alert"></p>
-
-                <button type="submit" class="bouton bouton-principal">Se connecter</button>
-            </form>
-
-            <!-- Mot de passe oublié : envoi d'un lien par courriel -->
-            <details class="mot-de-passe-oublie">
-                <summary>Mot de passe oublié ?</summary>
-
-                <form id="form-oubli" novalidate>
-                    <label for="courriel-oubli">Adresse courriel du compte :</label>
-                    <input type="email" id="courriel-oubli" name="courriel"
-                           autocomplete="email" required>
-                    <button type="submit" class="bouton bouton-secondaire">
-                        Recevoir un lien de réinitialisation
-                    </button>
-                    <p id="message-oubli" class="message-info" role="status"></p>
-                </form>
-            </details>
+            <!-- Les trois points forts -->
+            <ul class="atouts">
+                <li>
+                    <span class="atout-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </span>
+                    <div>
+                        <strong>Rapide et intuitive</strong>
+                        <span>Vos messages arrivent en temps réel.</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="atout-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <div>
+                        <strong>Sécurisée</strong>
+                        <span>Seuls vous et vos contacts lisez vos conversations.</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="atout-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <div>
+                        <strong>Toujours connectée</strong>
+                        <span>Sur ordinateur ou sur téléphone.</span>
+                    </div>
+                </li>
+            </ul>
         </section>
 
-        <!-- Formulaire d'inscription -->
-        <section id="section-inscription" class="inscription" aria-labelledby="titre-inscription">
-            <h2 id="titre-inscription">Pas encore de compte ?</h2>
+        <!-- Illustration décorative : aperçu de l'application (HTML/CSS) -->
+        <div class="illustration" aria-hidden="true">
+            <div class="bulle-flottante">
+                <svg viewBox="0 0 44 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><circle cx="22" cy="7" r="6" fill="currentColor"/><circle cx="37" cy="7" r="6" fill="currentColor"/></svg>
+            </div>
 
-            <details id="details-inscription">
-                <summary class="bouton bouton-secondaire">S'inscrire</summary>
+            <div class="fenetre-demo">
+                <div class="demo-barre">Ma Messagerie</div>
+                <div class="demo-corps">
+                    <div class="demo-liste">
+                        <div class="demo-contact"><i></i>Sarah</div>
+                        <div class="demo-contact"><i></i>Thomas</div>
+                        <div class="demo-contact"><i></i>Marie</div>
+                        <div class="demo-contact"><i></i>Alex</div>
+                    </div>
+                    <div class="demo-messages">
+                        <p class="demo-msg">Salut ! Tu as fini le projet ?</p>
+                        <p class="demo-msg envoye">Oui, il est en ligne 🎉</p>
+                        <p class="demo-msg">Bravo, je teste tout de suite !</p>
+                        <div class="demo-saisie"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="socle-demo"></div>
+
+            <div class="telephone-demo">
+                <p class="demo-msg">On se voit demain ?</p>
+                <p class="demo-msg envoye">Oui, à 10 h 👍</p>
+                <p class="demo-msg">Parfait !</p>
+                <p class="demo-msg envoye">À demain 😊</p>
+            </div>
+        </div>
+
+        <!-- Carte de connexion : quatre vues, une seule visible à la fois -->
+        <div class="carte-connexion">
+
+            <!-- Vue 1 : connexion -->
+            <section id="section-connexion" class="vue" aria-labelledby="titre-connexion">
+                <div class="carte-entete">
+                    <span class="carte-entete-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    <div>
+                        <h2 id="titre-connexion">Connexion</h2>
+                        <p>Accédez à votre compte Ma Messagerie</p>
+                    </div>
+                </div>
+
+                <form id="form-connexion" novalidate>
+                    <div class="champ">
+                        <label for="courriel">
+                            <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+                            Adresse courriel :
+                        </label>
+                        <input type="email" id="courriel" name="courriel"
+                               placeholder="Votre adresse courriel" autocomplete="email" required>
+                    </div>
+
+                    <div class="champ">
+                        <label for="mot-de-passe">
+                            <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Mot de passe :
+                        </label>
+                        <div class="champ-mdp">
+                            <input type="password" id="mot-de-passe" name="mot-de-passe"
+                                   placeholder="Votre mot de passe" autocomplete="current-password"
+                                   minlength="6" required>
+                            <button type="button" class="bouton-oeil" aria-controls="mot-de-passe"
+                                    aria-label="Afficher le mot de passe">
+                                <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ligne-options">
+                        <div class="champ-case">
+                            <label>
+                                <input type="checkbox" id="se-souvenir" name="se-souvenir" checked>
+                                Se souvenir de moi
+                            </label>
+                        </div>
+                        <button type="button" class="bouton-lien" data-vue="section-oubli">
+                            Mot de passe oublié ?
+                        </button>
+                    </div>
+
+                    <!-- Message d'erreur (lu par les lecteurs d'écran) -->
+                    <p id="erreur-connexion" class="message-erreur" role="alert"></p>
+
+                    <button type="submit" class="bouton bouton-principal">
+                        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+                        Se connecter
+                    </button>
+                </form>
+
+                <p class="separateur">ou</p>
+                <p class="question-compte">Pas encore de compte ?</p>
+
+                <button type="button" class="bouton bouton-contour" data-vue="section-inscription">
+                    <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                    S'inscrire
+                </button>
+            </section>
+
+            <!-- Vue 2 : inscription -->
+            <section id="section-inscription" class="vue" aria-labelledby="titre-inscription" hidden>
+                <div class="carte-entete">
+                    <span class="carte-entete-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                    </span>
+                    <div>
+                        <h2 id="titre-inscription">Créer un compte</h2>
+                        <p>C'est gratuit et rapide</p>
+                    </div>
+                </div>
 
                 <form id="form-inscription" novalidate>
                     <div class="champ">
                         <label for="nom-inscription">Nom :</label>
                         <input type="text" id="nom-inscription" name="nom"
-                               autocomplete="name" maxlength="40" required>
+                               placeholder="Votre nom" autocomplete="name" maxlength="40" required>
                     </div>
 
                     <div class="champ">
                         <label for="courriel-inscription">Adresse courriel :</label>
                         <input type="email" id="courriel-inscription" name="courriel"
-                               autocomplete="email" required>
+                               placeholder="Votre adresse courriel" autocomplete="email" required>
                     </div>
 
                     <div class="champ">
                         <label for="mdp-inscription">Mot de passe (6 caractères minimum) :</label>
-                        <input type="password" id="mdp-inscription" name="mot-de-passe"
-                               autocomplete="new-password" minlength="6" required>
+                        <div class="champ-mdp">
+                            <input type="password" id="mdp-inscription" name="mot-de-passe"
+                                   placeholder="Choisissez un mot de passe" autocomplete="new-password"
+                                   minlength="6" required>
+                            <button type="button" class="bouton-oeil" aria-controls="mdp-inscription"
+                                    aria-label="Afficher le mot de passe">
+                                <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
                     </div>
 
                     <p id="erreur-inscription" class="message-erreur" role="alert"></p>
 
                     <button type="submit" class="bouton bouton-principal">Créer mon compte</button>
                 </form>
-            </details>
-        </section>
 
-        <!-- Nouveau mot de passe : affiché après le clic sur le lien reçu par courriel -->
-        <section id="section-nouveau-mdp" aria-labelledby="titre-nouveau-mdp" hidden>
-            <h2 id="titre-nouveau-mdp">Nouveau mot de passe</h2>
+                <p class="retour">
+                    <button type="button" class="bouton-lien" data-vue="section-connexion">
+                        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        Déjà un compte ? Se connecter
+                    </button>
+                </p>
+            </section>
 
-            <form id="form-nouveau-mdp" novalidate>
-                <div class="champ">
-                    <label for="nouveau-mdp">Nouveau mot de passe (6 caractères minimum) :</label>
-                    <input type="password" id="nouveau-mdp" name="nouveau-mdp"
-                           autocomplete="new-password" minlength="6" required>
+            <!-- Vue 3 : mot de passe oublié -->
+            <section id="section-oubli" class="vue" aria-labelledby="titre-oubli" hidden>
+                <div class="carte-entete">
+                    <span class="carte-entete-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </span>
+                    <div>
+                        <h2 id="titre-oubli">Mot de passe oublié</h2>
+                        <p>Recevez un lien par courriel</p>
+                    </div>
                 </div>
 
-                <p id="erreur-nouveau-mdp" class="message-erreur" role="alert"></p>
+                <form id="form-oubli" novalidate>
+                    <div class="champ">
+                        <label for="courriel-oubli">Adresse courriel du compte :</label>
+                        <input type="email" id="courriel-oubli" name="courriel"
+                               placeholder="Votre adresse courriel" autocomplete="email" required>
+                    </div>
+                    <button type="submit" class="bouton bouton-principal">
+                        Recevoir un lien de réinitialisation
+                    </button>
+                    <p id="message-oubli" class="message-info" role="status"></p>
+                </form>
 
-                <button type="submit" class="bouton bouton-principal">Enregistrer</button>
-            </form>
-        </section>
+                <p class="retour">
+                    <button type="button" class="bouton-lien" data-vue="section-connexion">
+                        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        Retour à la connexion
+                    </button>
+                </p>
+            </section>
 
+            <!-- Vue 4 : nouveau mot de passe (après le lien reçu par courriel) -->
+            <section id="section-nouveau-mdp" class="vue" aria-labelledby="titre-nouveau-mdp" hidden>
+                <div class="carte-entete">
+                    <span class="carte-entete-icone" aria-hidden="true">
+                        <svg class="icone" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </span>
+                    <div>
+                        <h2 id="titre-nouveau-mdp">Nouveau mot de passe</h2>
+                        <p>Choisissez votre nouveau mot de passe</p>
+                    </div>
+                </div>
+
+                <form id="form-nouveau-mdp" novalidate>
+                    <div class="champ">
+                        <label for="nouveau-mdp">Nouveau mot de passe (6 caractères minimum) :</label>
+                        <input type="password" id="nouveau-mdp" name="nouveau-mdp"
+                               autocomplete="new-password" minlength="6" required>
+                    </div>
+
+                    <p id="erreur-nouveau-mdp" class="message-erreur" role="alert"></p>
+
+                    <button type="submit" class="bouton bouton-principal">Enregistrer</button>
+                </form>
+            </section>
+
+        </div>
     </main>
+
+    <!-- Pied de page -->
+    <p class="pied-accueil">
+        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Plateforme de messagerie simple, sécurisée et moderne.
+    </p>
 
     <!-- Scripts : bibliothèque Supabase, configuration, fonctions partagées, page -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>

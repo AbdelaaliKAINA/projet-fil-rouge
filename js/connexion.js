@@ -3,13 +3,10 @@
    - Connexion (Supabase Auth)
    - Inscription
    - Mot de passe oublié et choix d'un nouveau mot de passe
+   - Changement de vue dans la carte et affichage du mot de passe
    ========================================================== */
 
 // ----- Éléments de la page -----
-const sectionConnexion = document.getElementById("section-connexion");
-const sectionInscription = document.getElementById("section-inscription");
-const sectionNouveauMdp = document.getElementById("section-nouveau-mdp");
-
 const formConnexion = document.getElementById("form-connexion");
 const champCourriel = document.getElementById("courriel");
 const champMotDePasse = document.getElementById("mot-de-passe");
@@ -59,14 +56,46 @@ function patienter(formulaire, enCours) {
     formulaire.querySelector("button[type='submit']").disabled = enCours;
 }
 
+// Affiche une seule vue de la carte (connexion, inscription,
+// mot de passe oublié ou nouveau mot de passe) et place le
+// curseur dans son premier champ
+function afficherVue(idVue) {
+    document.querySelectorAll(".carte-connexion .vue").forEach(function (vue) {
+        vue.hidden = vue.id !== idVue;
+    });
+
+    const premierChamp = document.querySelector("#" + idVue + " input");
+
+    if (premierChamp) {
+        premierChamp.focus();
+    }
+}
+
 // Affiche uniquement le formulaire « Nouveau mot de passe »
 function afficherNouveauMotDePasse() {
     modeReinitialisation = true;
-    sectionConnexion.hidden = true;
-    sectionInscription.hidden = true;
-    sectionNouveauMdp.hidden = false;
-    champNouveauMdp.focus();
+    afficherVue("section-nouveau-mdp");
 }
+
+// Boutons qui changent de vue (attribut data-vue)
+document.querySelectorAll("[data-vue]").forEach(function (bouton) {
+    bouton.addEventListener("click", function () {
+        afficherVue(bouton.dataset.vue);
+    });
+});
+
+// Boutons « œil » : afficher ou masquer le mot de passe
+document.querySelectorAll(".bouton-oeil").forEach(function (bouton) {
+    bouton.addEventListener("click", function () {
+        const champ = document.getElementById(bouton.getAttribute("aria-controls"));
+        const visible = champ.type === "text";
+
+        champ.type = visible ? "password" : "text";
+        bouton.setAttribute("aria-label",
+            visible ? "Afficher le mot de passe" : "Masquer le mot de passe");
+        champ.focus();
+    });
+});
 
 
 /* ----------------------------------------------------------
