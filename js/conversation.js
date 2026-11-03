@@ -132,6 +132,7 @@ async function ouvrirConversation(contact) {
 
     nomContact.textContent = contact.nom;
     avatarContact.textContent = contact.nom.charAt(0).toUpperCase();
+    avatarContact.style.backgroundColor = couleurAvatar(contact.nom);
     statutContact.hidden = false;
     formMessage.hidden = false;
 

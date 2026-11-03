@@ -24,6 +24,7 @@ function afficherCompte() {
     nomUtilisateur.textContent = moi.nom;
     courrielUtilisateur.textContent = moi.courriel;
     avatarUtilisateur.textContent = moi.nom.charAt(0).toUpperCase();
+    avatarUtilisateur.style.backgroundColor = couleurAvatar(moi.nom);
     champNom.value = moi.nom;
 }
 
