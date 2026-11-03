@@ -91,6 +91,23 @@ a {
     white-space: nowrap;
 }
 
+/* Lien « Aller au contenu » : caché, visible au premier appui sur Tab */
+.lien-evitement {
+    position: absolute;
+    top: -60px;
+    left: 16px;
+    z-index: 100;
+    padding: 10px 16px;
+    border-radius: var(--rayon);
+    background-color: var(--bleu-fonce);
+    color: var(--blanc);
+    font-weight: 600;
+}
+
+.lien-evitement:focus {
+    top: 12px;
+}
+
 /* Contour visible au clavier (accessibilité) */
 :focus-visible {
     outline: 3px solid rgba(37, 99, 235, 0.4);
