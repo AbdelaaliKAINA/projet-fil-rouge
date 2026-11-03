@@ -22,6 +22,7 @@ const listeMessages = document.getElementById("liste-messages");
 
 const formMessage = document.getElementById("form-message");
 const champMessage = document.getElementById("message");
+const boutonEnvoyer = formMessage.querySelector("button[type='submit']");
 
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
@@ -401,11 +402,16 @@ formMessage.addEventListener("submit", async function (event) {
 
     champMessage.value = "";
 
+    // Bouton désactivé pendant l'envoi : évite d'envoyer deux fois
+    boutonEnvoyer.disabled = true;
+
     const { data, error } = await client
         .from("messages")
         .insert({ auteur: moi.id, destinataire: contactActuel.id, texte: texte })
         .select("id, auteur, destinataire, texte, reaction, cree_le")
         .single();
+
+    boutonEnvoyer.disabled = false;
 
     if (error) {
         champMessage.value = texte;   // on rend le texte pour réessayer
