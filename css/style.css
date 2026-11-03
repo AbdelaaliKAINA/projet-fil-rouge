@@ -1008,6 +1008,16 @@ input[type="checkbox"] {
     margin-bottom: 16px;
 }
 
+/* Séparateur « Aujourd'hui » / « Hier » entre les messages */
+.liste-messages > li.separateur-date {
+    justify-content: center;
+    margin: 6px 0 14px;
+    color: var(--texte-doux);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
 .message-vide {
     justify-content: center;
     color: var(--texte-doux);
