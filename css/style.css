@@ -905,6 +905,13 @@ input[type="checkbox"] {
     font-size: 21px;
 }
 
+/* « Bonjour, Abdel 👋 » sous le titre */
+.bienvenue {
+    margin: -8px 0 18px;
+    color: var(--texte-doux);
+    font-size: 14px;
+}
+
 .nouvelle-conversation {
     display: grid;
     gap: 8px;

@@ -502,6 +502,8 @@ async function demarrer() {
         return;
     }
 
+    document.getElementById("bienvenue").textContent = "Bonjour, " + moi.nom + " 👋";
+
     try {
         // Contacts acceptés
         const relations = await chargerRelations(moi);
