@@ -8,6 +8,7 @@
 const avatarUtilisateur = document.getElementById("avatar-utilisateur");
 const nomUtilisateur = document.getElementById("nom-utilisateur");
 const courrielUtilisateur = document.getElementById("courriel-utilisateur");
+const inscriptionUtilisateur = document.getElementById("inscription-utilisateur");
 
 const formNom = document.getElementById("form-nom");
 const champNom = document.getElementById("nouveau-nom");
@@ -26,6 +27,14 @@ function afficherCompte() {
     avatarUtilisateur.textContent = moi.nom.charAt(0).toUpperCase();
     avatarUtilisateur.style.backgroundColor = couleurAvatar(moi.nom);
     champNom.value = moi.nom;
+
+    // Date d'inscription (ex. : « Membre depuis le 23 octobre 2026 »)
+    if (moi.cree_le) {
+        inscriptionUtilisateur.textContent = "Membre depuis le " +
+            new Date(moi.cree_le).toLocaleDateString("fr-CA", {
+                day: "numeric", month: "long", year: "numeric"
+            });
+    }
 }
 
 // Modification du nom affiché (visible par les contacts)

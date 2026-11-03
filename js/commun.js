@@ -87,7 +87,7 @@ async function obtenirUtilisateur() {
 
     const { data: profil } = await client
         .from("profils")
-        .select("id, nom, courriel")
+        .select("id, nom, courriel, cree_le")
         .eq("id", utilisateur.id)
         .maybeSingle();
 
