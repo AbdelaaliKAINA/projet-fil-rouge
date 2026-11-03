@@ -117,8 +117,13 @@ function afficherTout() {
             executer(client.from("contacts").update({ statut: "accepte" }).eq("id", relation.id));
         });
 
+        // Refuser : confirmation d'abord (prévention des erreurs)
         const refuser = creerBouton("Refuser", "bouton-secondaire", function () {
-            executer(client.from("contacts").delete().eq("id", relation.id));
+            if (confirm("Refuser l'invitation de " + relation.personne.nom + " ?")) {
+                executer(client.from("contacts").delete().eq("id", relation.id));
+            } else {
+                actualiser();   // réactive le bouton
+            }
         });
 
         return creerLigne(relation.personne, [accepter, refuser]);
