@@ -12,6 +12,7 @@
    9. Page Contacts
    10. Page Paramètres
    11. Responsive (téléphone)
+   12. Page introuvable (404)
    ========================================================== */
 
 
@@ -1314,4 +1315,26 @@ input[type="checkbox"] {
     .actions-contacts {
         grid-template-columns: 1fr;
     }
+}
+
+
+/* ===== 12. Page introuvable (404) ===== */
+
+.page-introuvable {
+    text-align: center;
+}
+
+.code-erreur {
+    margin: 0;
+    background: var(--degrade);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 96px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.page-introuvable p {
+    color: var(--texte-doux);
 }
