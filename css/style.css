@@ -929,6 +929,7 @@ input[type="checkbox"] {
 
 /* Colonne de droite */
 .conversation {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -1053,6 +1054,27 @@ input[type="checkbox"] {
     margin-left: 10px;
     color: var(--texte-doux);
     font-size: 12px;
+}
+
+/* Bouton rond « Descendre au dernier message » */
+.bouton-descendre {
+    position: absolute;
+    right: 28px;
+    bottom: 96px;
+    z-index: 5;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--bordure);
+    border-radius: 50%;
+    background-color: var(--blanc);
+    color: var(--bleu);
+    font-size: 20px;
+    box-shadow: var(--ombre);
+    cursor: pointer;
+}
+
+.bouton-descendre:hover {
+    background-color: var(--bleu-pale);
 }
 
 /* Zone d'écriture */
