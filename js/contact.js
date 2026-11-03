@@ -134,8 +134,13 @@ function afficherTout() {
     remplirListe(listeEnvoyees, envoyees, function (relation) {
         const statut = creerElement("span", "statut-attente", "En attente");
 
+        // Annuler : confirmation d'abord (prévention des erreurs)
         const annuler = creerBouton("Annuler", "bouton-secondaire", function () {
-            executer(client.from("contacts").delete().eq("id", relation.id));
+            if (confirm("Annuler l'invitation envoyée à " + relation.personne.nom + " ?")) {
+                executer(client.from("contacts").delete().eq("id", relation.id));
+            } else {
+                actualiser();   // réactive le bouton
+            }
         });
 
         return creerLigne(relation.personne, [statut, annuler]);
