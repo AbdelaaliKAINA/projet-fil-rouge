@@ -23,6 +23,7 @@ const listeMessages = document.getElementById("liste-messages");
 const formMessage = document.getElementById("form-message");
 const champMessage = document.getElementById("message");
 const boutonEnvoyer = formMessage.querySelector("button[type='submit']");
+const compteurMessage = document.getElementById("compteur-message");
 
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
@@ -390,6 +391,16 @@ function ecouterPresence() {
    Événements
    ---------------------------------------------------------- */
 
+// Met à jour le compteur « 120 / 1000 » sous la zone de saisie
+// (en rouge quand on approche de la limite)
+function mettreAJourCompteur() {
+    const longueur = champMessage.value.length;
+    compteurMessage.textContent = longueur + " / " + champMessage.maxLength;
+    compteurMessage.classList.toggle("compteur-limite", longueur > 900);
+}
+
+champMessage.addEventListener("input", mettreAJourCompteur);
+
 // Envoi d'un message
 formMessage.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -401,6 +412,7 @@ formMessage.addEventListener("submit", async function (event) {
     }
 
     champMessage.value = "";
+    mettreAJourCompteur();
 
     // Bouton désactivé pendant l'envoi : évite d'envoyer deux fois
     boutonEnvoyer.disabled = true;
@@ -415,6 +427,7 @@ formMessage.addEventListener("submit", async function (event) {
 
     if (error) {
         champMessage.value = texte;   // on rend le texte pour réessayer
+        mettreAJourCompteur();
         alert(messageErreur(error));
         return;
     }

@@ -1057,6 +1057,20 @@ input[type="checkbox"] {
     flex: 1;
 }
 
+/* Compteur de caractères du message */
+.compteur {
+    align-self: center;
+    min-width: 72px;
+    color: var(--texte-doux);
+    font-size: 12px;
+    text-align: right;
+}
+
+.compteur-limite {
+    color: var(--rouge);
+    font-weight: 600;
+}
+
 
 /* ===== 8. Réactions (fonctionnalité supplémentaire) ===== */
 
