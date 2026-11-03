@@ -19,6 +19,7 @@ const avatarContact = document.getElementById("avatar-contact");
 const statutContact = document.getElementById("statut-contact");
 const texteStatut = document.getElementById("texte-statut");
 const listeMessages = document.getElementById("liste-messages");
+const boutonDescendre = document.getElementById("bouton-descendre");
 
 const formMessage = document.getElementById("form-message");
 const champMessage = document.getElementById("message");
@@ -428,6 +429,18 @@ function mettreAJourCompteur() {
 }
 
 champMessage.addEventListener("input", mettreAJourCompteur);
+
+// Affiche le bouton « Descendre » quand on est loin du dernier message
+listeMessages.addEventListener("scroll", function () {
+    const distanceDuBas = listeMessages.scrollHeight
+        - listeMessages.scrollTop - listeMessages.clientHeight;
+    boutonDescendre.hidden = distanceDuBas < 200;
+});
+
+// Clic : défilement doux jusqu'au dernier message
+boutonDescendre.addEventListener("click", function () {
+    listeMessages.scrollTo({ top: listeMessages.scrollHeight, behavior: "smooth" });
+});
 
 // Envoi d'un message
 formMessage.addEventListener("submit", async function (event) {
