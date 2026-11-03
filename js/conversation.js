@@ -192,6 +192,24 @@ function formaterDate(dateISO) {
     return jour + ", " + heure;
 }
 
+// Renvoie « Aujourd'hui », « Hier » ou la date complète d'un message
+function libelleJour(dateISO) {
+    const date = new Date(dateISO);
+    const hier = new Date();
+    hier.setDate(hier.getDate() - 1);
+
+    if (date.toDateString() === new Date().toDateString()) {
+        return "Aujourd'hui";
+    }
+    if (date.toDateString() === hier.toDateString()) {
+        return "Hier";
+    }
+
+    return date.toLocaleDateString("fr-CA", {
+        weekday: "long", day: "numeric", month: "long", year: "numeric"
+    });
+}
+
 // Affiche tous les messages de la conversation ouverte
 function afficherMessages() {
     listeMessages.replaceChildren();
@@ -203,7 +221,17 @@ function afficherMessages() {
         return;
     }
 
+    // Un séparateur de date est ajouté à chaque nouveau jour
+    let jourPrecedent = "";
+
     messages.forEach(function (message) {
+        const jour = libelleJour(message.cree_le);
+
+        if (jour !== jourPrecedent) {
+            listeMessages.appendChild(creerElement("li", "separateur-date", jour));
+            jourPrecedent = jour;
+        }
+
         listeMessages.appendChild(creerMessage(message));
     });
 
