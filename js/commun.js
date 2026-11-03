@@ -100,6 +100,37 @@ async function obtenirUtilisateur() {
     };
 }
 
+// Affiche le nombre d'invitations reçues à côté de « Contacts » dans le menu
+async function afficherNombreInvitations(moi) {
+    const lien = document.querySelector('.entete nav a[href="contact.html"]');
+
+    if (!lien || !client) {
+        return;
+    }
+
+    const { data } = await client
+        .from("contacts")
+        .select("id")
+        .eq("destinataire", moi.id)
+        .eq("statut", "en_attente");
+
+    const nombre = data ? data.length : 0;
+    let pastille = lien.querySelector(".badge-menu");
+
+    if (nombre === 0) {
+        if (pastille) pastille.remove();
+        return;
+    }
+
+    if (!pastille) {
+        pastille = creerElement("span", "badge-menu");
+        lien.appendChild(pastille);
+    }
+
+    pastille.textContent = nombre;
+    pastille.setAttribute("aria-label", nombre + " invitation(s) en attente");
+}
+
 // À appeler au début des pages réservées aux personnes connectées.
 // Renvoie la personne connectée, ou redirige vers la connexion.
 async function exigerConnexion() {
@@ -112,6 +143,7 @@ async function exigerConnexion() {
         return null;
     }
 
+    afficherNombreInvitations(utilisateur);
     return utilisateur;
 }
 
@@ -175,10 +207,26 @@ function creerElement(balise, classe, texte) {
     return element;
 }
 
+// Couleurs possibles pour les avatars
+const COULEURS_AVATAR = ["#2563eb", "#7c3aed", "#db2777", "#ea580c", "#16a34a", "#0891b2", "#4f46e5", "#be123c"];
+
+// Choisit toujours la même couleur pour un même nom
+// (somme des codes des lettres, modulo le nombre de couleurs)
+function couleurAvatar(nom) {
+    let somme = 0;
+
+    for (const lettre of nom) {
+        somme += lettre.charCodeAt(0);
+    }
+
+    return COULEURS_AVATAR[somme % COULEURS_AVATAR.length];
+}
+
 // Crée l'avatar rond contenant la première lettre du nom
 function creerAvatar(nom) {
     const avatar = creerElement("span", "avatar", nom.charAt(0).toUpperCase());
     avatar.setAttribute("aria-hidden", "true");
+    avatar.style.backgroundColor = couleurAvatar(nom);
     return avatar;
 }
 

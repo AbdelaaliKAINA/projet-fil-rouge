@@ -34,6 +34,7 @@ async function actualiser() {
     try {
         relations = await chargerRelations(moi);
         afficherTout();
+        afficherNombreInvitations(moi);   // met à jour la pastille du menu
     } catch (erreur) {
         messageInvitation.textContent = messageErreur(erreur);
     }
