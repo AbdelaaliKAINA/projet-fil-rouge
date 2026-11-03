@@ -92,10 +92,11 @@ function afficherListeConversations() {
             listeConversations.appendChild(li);
         });
 
-    // Nombre de conversations non lues dans le titre de l'onglet
-    document.title = nonLus.size > 0
-        ? "(" + nonLus.size + ") " + TITRE_PAGE
-        : TITRE_PAGE;
+    // Titre de l'onglet : non lus + nom du contact ouvert
+    // (ex. : « (2) Marie - Ma Messagerie - Conversations »)
+    const prefixe = nonLus.size > 0 ? "(" + nonLus.size + ") " : "";
+    const contact = contactActuel ? contactActuel.nom + " - " : "";
+    document.title = prefixe + contact + TITRE_PAGE;
 }
 
 // Remplit le menu déroulant avec les contacts sans conversation
