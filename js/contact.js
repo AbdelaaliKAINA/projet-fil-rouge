@@ -168,6 +168,16 @@ function statutDe(relation) {
     return relation.envoyeeParMoi ? "Invitation envoyée" : "Invitation reçue";
 }
 
+// Recherche en direct : les résultats s'affichent pendant la frappe
+champRecherche.addEventListener("input", function () {
+    if (champRecherche.value.trim() === "") {
+        resultatRecherche.replaceChildren();
+        return;
+    }
+
+    formRecherche.requestSubmit();
+});
+
 formRecherche.addEventListener("submit", function (event) {
     event.preventDefault();
 
