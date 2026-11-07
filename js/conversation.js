@@ -509,6 +509,14 @@ function mettreAJourCompteur() {
 
 champMessage.addEventListener("input", mettreAJourCompteur);
 
+// Touche Échap : efface le message en cours d'écriture
+champMessage.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        champMessage.value = "";
+        mettreAJourCompteur();
+    }
+});
+
 // Affiche le bouton « Descendre » quand on est loin du dernier message
 listeMessages.addEventListener("scroll", function () {
     const distanceDuBas = listeMessages.scrollHeight
