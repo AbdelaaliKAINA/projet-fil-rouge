@@ -69,6 +69,24 @@
             <p id="message-nom" class="message-info" role="status"></p>
         </section>
 
+        <!-- Changement du mot de passe -->
+        <section class="bloc-parametre" aria-labelledby="titre-mot-de-passe">
+            <h3 id="titre-mot-de-passe">Mot de passe</h3>
+
+            <form id="form-mot-de-passe" class="form-nom" novalidate>
+                <label for="nouveau-mot-de-passe">Nouveau mot de passe (6 caractères minimum) :</label>
+                <input type="password" id="nouveau-mot-de-passe" name="nouveau-mot-de-passe"
+                       autocomplete="new-password" minlength="6" required>
+
+                <label for="confirmation-mot-de-passe">Confirmer le mot de passe :</label>
+                <input type="password" id="confirmation-mot-de-passe" name="confirmation-mot-de-passe"
+                       autocomplete="new-password" minlength="6" required>
+
+                <button type="submit" class="bouton bouton-secondaire">Changer le mot de passe</button>
+            </form>
+            <p id="message-mot-de-passe" class="message-info" role="status"></p>
+        </section>
+
         <!-- Déconnexion -->
         <section class="bloc-parametre" aria-labelledby="titre-deconnexion">
             <h3 id="titre-deconnexion">Déconnexion</h3>
