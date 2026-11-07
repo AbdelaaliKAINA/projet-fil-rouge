@@ -174,6 +174,16 @@ function statutDe(relation) {
     return relation.envoyeeParMoi ? "Invitation envoyée" : "Invitation reçue";
 }
 
+// Raccourci clavier « / » : place le curseur dans la recherche
+document.addEventListener("keydown", function (event) {
+    const dansUnChamp = ["INPUT", "TEXTAREA"].includes(document.activeElement.tagName);
+
+    if (event.key === "/" && !dansUnChamp) {
+        event.preventDefault();
+        champRecherche.focus();
+    }
+});
+
 // Recherche en direct : les résultats s'affichent pendant la frappe
 champRecherche.addEventListener("input", function () {
     if (champRecherche.value.trim() === "") {
