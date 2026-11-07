@@ -166,6 +166,11 @@ function afficherTout() {
 
         return creerLigne(relation.personne, [lien, supprimer]);
     }, "Vous n'avez pas encore de contact. Invitez quelqu'un avec son courriel.");
+
+    // Nombre d'éléments dans le titre de chaque section
+    document.getElementById("titre-recues").textContent = "Invitations reçues (" + recues.length + ")";
+    document.getElementById("titre-envoyees").textContent = "Invitations envoyées (" + envoyees.length + ")";
+    document.getElementById("titre-mes-contacts").textContent = "Mes contacts (" + acceptees.length + ")";
 }
 
 
