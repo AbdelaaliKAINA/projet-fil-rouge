@@ -19,6 +19,9 @@ const champNouveauMdp = document.getElementById("nouveau-mot-de-passe");
 const champConfirmationMdp = document.getElementById("confirmation-mot-de-passe");
 const messageMotDePasse = document.getElementById("message-mot-de-passe");
 
+const etatNotifications = document.getElementById("etat-notifications");
+const boutonNotifications = document.getElementById("bouton-notifications");
+
 const boutonDeconnexion = document.getElementById("bouton-deconnexion");
 const boutonSupprimer = document.getElementById("bouton-supprimer");
 
@@ -89,6 +92,29 @@ formMotDePasse.addEventListener("submit", async function (event) {
     formMotDePasse.reset();
     messageMotDePasse.textContent = "Mot de passe modifié.";
 });
+
+// Affiche l'état des notifications du navigateur
+function afficherEtatNotifications() {
+    if (!("Notification" in window)) {
+        etatNotifications.textContent = "Votre navigateur ne gère pas les notifications.";
+        boutonNotifications.hidden = true;
+    } else if (Notification.permission === "granted") {
+        etatNotifications.textContent = "Notifications activées ✅";
+        boutonNotifications.hidden = true;
+    } else if (Notification.permission === "denied") {
+        etatNotifications.textContent =
+            "Notifications bloquées : autorisez-les dans les réglages du navigateur.";
+        boutonNotifications.hidden = true;
+    }
+}
+
+// Demande l'autorisation au navigateur
+boutonNotifications.addEventListener("click", async function () {
+    await Notification.requestPermission();
+    afficherEtatNotifications();
+});
+
+afficherEtatNotifications();
 
 // Déconnexion : on ferme la session et on revient à l'accueil
 boutonDeconnexion.addEventListener("click", async function () {
