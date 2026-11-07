@@ -59,7 +59,14 @@ function trouverContact(id) {
 function afficherListeConversations() {
     listeConversations.replaceChildren();
 
-    contacts
+    // La conversation la plus récente en premier
+    const tries = contacts.slice().sort(function (a, b) {
+        const dateA = derniers.has(a.id) ? derniers.get(a.id).cree_le : "";
+        const dateB = derniers.has(b.id) ? derniers.get(b.id).cree_le : "";
+        return dateB.localeCompare(dateA);
+    });
+
+    tries
         .filter(function (contact) {
             return avecMessages.has(contact.id) ||
                    (contactActuel && contact.id === contactActuel.id);
