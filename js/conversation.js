@@ -246,6 +246,27 @@ function afficherMessages() {
     listeMessages.scrollTop = listeMessages.scrollHeight;
 }
 
+// Transforme les adresses web (http:// ou https://) en liens cliquables.
+// Le texte est ajouté avec textContent : aucun HTML n'est interprété.
+function creerTexteAvecLiens(texte) {
+    const paragraphe = creerElement("p", "message-texte");
+    const morceaux = texte.split(/(https?:\/\/[^\s]+)/g);
+
+    morceaux.forEach(function (morceau) {
+        if (/^https?:\/\//.test(morceau)) {
+            const lien = creerElement("a", "lien-message", morceau);
+            lien.href = morceau;
+            lien.target = "_blank";
+            lien.rel = "noopener noreferrer";
+            paragraphe.appendChild(lien);
+        } else if (morceau) {
+            paragraphe.appendChild(document.createTextNode(morceau));
+        }
+    });
+
+    return paragraphe;
+}
+
 // Construit l'élément HTML d'un message
 function creerMessage(message) {
     const deMoi = message.auteur === moi.id;
@@ -266,7 +287,7 @@ function creerMessage(message) {
         heure
     );
 
-    const texte = creerElement("p", "message-texte", message.texte);
+    const texte = creerTexteAvecLiens(message.texte);
 
     article.append(entete, texte, creerReactions(message));
     li.appendChild(article);
