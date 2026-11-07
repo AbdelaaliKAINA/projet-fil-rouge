@@ -940,6 +940,23 @@ input[type="checkbox"] {
     text-decoration: none;
 }
 
+/* Nom + aperçu du dernier message, coupé avec « ... » */
+.textes-conversation {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.apercu-message {
+    overflow: hidden;
+    color: var(--texte-doux);
+    font-size: 13px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .lien-conversation:hover {
     background-color: var(--bordure);
 }
