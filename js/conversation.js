@@ -341,6 +341,20 @@ function ajouterMessage(message) {
     }
 }
 
+// Notification du navigateur si l'onglet est caché
+// (l'autorisation se donne dans les paramètres)
+function notifier(message, idAutre) {
+    const autorise = "Notification" in window && Notification.permission === "granted";
+
+    if (message.auteur === moi.id || !document.hidden || !autorise) {
+        return;
+    }
+
+    new Notification(trouverContact(idAutre).nom, {
+        body: message.texte.slice(0, 100)
+    });
+}
+
 // Appelé pour chaque nouveau message (envoyé ou reçu)
 function recevoirMessage(message) {
     const idAutre = message.auteur === moi.id ? message.destinataire : message.auteur;
@@ -350,6 +364,7 @@ function recevoirMessage(message) {
     }
 
     avecMessages.add(idAutre);
+    notifier(message, idAutre);
 
     if (contactActuel && idAutre === contactActuel.id) {
         ajouterMessage(message);
