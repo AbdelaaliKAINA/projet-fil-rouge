@@ -14,6 +14,11 @@ const formNom = document.getElementById("form-nom");
 const champNom = document.getElementById("nouveau-nom");
 const messageNom = document.getElementById("message-nom");
 
+const formMotDePasse = document.getElementById("form-mot-de-passe");
+const champNouveauMdp = document.getElementById("nouveau-mot-de-passe");
+const champConfirmationMdp = document.getElementById("confirmation-mot-de-passe");
+const messageMotDePasse = document.getElementById("message-mot-de-passe");
+
 const boutonDeconnexion = document.getElementById("bouton-deconnexion");
 const boutonSupprimer = document.getElementById("bouton-supprimer");
 
@@ -58,6 +63,31 @@ formNom.addEventListener("submit", async function (event) {
     moi.nom = nom;
     afficherCompte();
     messageNom.textContent = "Nom enregistré.";
+});
+
+// Changement du mot de passe (Supabase Auth)
+formMotDePasse.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!formMotDePasse.checkValidity()) {
+        messageMotDePasse.textContent = "Le mot de passe doit contenir au moins 6 caractères.";
+        return;
+    }
+
+    if (champNouveauMdp.value !== champConfirmationMdp.value) {
+        messageMotDePasse.textContent = "Les deux mots de passe ne correspondent pas.";
+        return;
+    }
+
+    const { error } = await client.auth.updateUser({ password: champNouveauMdp.value });
+
+    if (error) {
+        messageMotDePasse.textContent = messageErreur(error);
+        return;
+    }
+
+    formMotDePasse.reset();
+    messageMotDePasse.textContent = "Mot de passe modifié.";
 });
 
 // Déconnexion : on ferme la session et on revient à l'accueil
