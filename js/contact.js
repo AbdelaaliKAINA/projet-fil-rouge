@@ -101,16 +101,21 @@ function remplirListe(liste, elements, fabriquerLigne, texteVide) {
    Affichage des trois listes
    ---------------------------------------------------------- */
 
+// Ordre alphabétique des personnes (règles du français)
+function parNom(a, b) {
+    return a.personne.nom.localeCompare(b.personne.nom, "fr");
+}
+
 function afficherTout() {
     const recues = relations.filter(function (r) {
         return r.statut === "en_attente" && !r.envoyeeParMoi;
-    });
+    }).sort(parNom);
     const envoyees = relations.filter(function (r) {
         return r.statut === "en_attente" && r.envoyeeParMoi;
-    });
+    }).sort(parNom);
     const acceptees = relations.filter(function (r) {
         return r.statut === "accepte";
-    });
+    }).sort(parNom);
 
     // Invitations reçues : Accepter / Refuser
     remplirListe(listeRecues, recues, function (relation) {
