@@ -1088,6 +1088,13 @@ input[type="checkbox"] {
     overflow-wrap: anywhere;
 }
 
+/* Lien dans un message */
+.lien-message {
+    color: var(--bleu-survol);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+}
+
 .message-entete time {
     margin-left: 10px;
     color: var(--texte-doux);
