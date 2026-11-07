@@ -31,6 +31,15 @@ reçus en temps réel.
 - **Notification** : pastille « Nouveau » et nombre de messages non lus dans le titre de l'onglet
 - Modification du nom affiché, déconnexion et **suppression du compte**
 
+## Améliorations de l'interface
+
+- Indicateur « en train d'écrire » (Supabase Broadcast) et notifications du navigateur
+- Aperçu du dernier message et tri des conversations par date
+- Séparateurs de date, bouton « Descendre », liens cliquables dans les messages
+- Compteur de caractères, touche Échap pour effacer, raccourci « / » pour rechercher
+- Pastille du nombre d'invitations dans le menu, avatars colorés
+- Changement du mot de passe, date d'inscription, page 404 personnalisée
+
 ## Pages
 
 | Page | Rôle |
