@@ -40,6 +40,7 @@ let avecMessages = new Set();   // id des contacts ayant déjà échangé un mes
 let contactActuel = null;       // contact de la conversation ouverte
 let messages = [];              // messages de la conversation ouverte
 let enLigne = new Set();        // id des personnes connectées en ce moment
+const derniers = new Map();     // dernier message échangé avec chaque contact
 let canalEcriture = null;       // canal Supabase de l'indicateur d'écriture
 let dernierSignal = 0;          // moment du dernier signal « j'écris »
 const nonLus = new Set();       // id des contacts ayant envoyé un nouveau message
@@ -385,6 +386,7 @@ function recevoirMessage(message) {
     }
 
     avecMessages.add(idAutre);
+    derniers.set(idAutre, message);
     notifier(message, idAutre);
 
     if (contactActuel && idAutre === contactActuel.id) {
@@ -620,14 +622,20 @@ async function demarrer() {
         );
 
         // Contacts avec qui des messages ont déjà été échangés
-        const { data, error } = await client.from("messages").select("auteur, destinataire");
+        const { data, error } = await client
+            .from("messages")
+            .select("auteur, destinataire, texte, cree_le")
+            .order("cree_le");
 
         if (error) {
             throw error;
         }
 
+        // Les messages sont triés par date : le dernier remplace les autres
         data.forEach(function (m) {
-            avecMessages.add(m.auteur === moi.id ? m.destinataire : m.auteur);
+            const idAutre = m.auteur === moi.id ? m.destinataire : m.auteur;
+            avecMessages.add(idAutre);
+            derniers.set(idAutre, m);
         });
     } catch (erreur) {
         listeMessages.replaceChildren(creerElement("li", "message-vide", messageErreur(erreur)));
