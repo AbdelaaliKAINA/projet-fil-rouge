@@ -1115,6 +1115,28 @@ input[type="checkbox"] {
     background-color: var(--bleu-pale);
 }
 
+/* « Marie est en train d'écrire... » avec points animés */
+.indicateur-ecriture {
+    margin: 0;
+    padding: 6px 25px;
+    background-color: var(--fond-clair);
+    color: var(--texte-doux);
+    font-size: 13px;
+    font-style: italic;
+}
+
+.indicateur-ecriture::after {
+    content: "";
+    animation: points-ecriture 1.2s steps(4) infinite;
+}
+
+@keyframes points-ecriture {
+    0% { content: ""; }
+    25% { content: "."; }
+    50% { content: ".."; }
+    75% { content: "..."; }
+}
+
 /* Zone d'écriture */
 .form-message {
     display: flex;
