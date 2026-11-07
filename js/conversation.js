@@ -74,7 +74,18 @@ function afficherListeConversations() {
                 avatar.classList.add("avatar-en-ligne");
             }
 
-            lien.append(avatar, creerElement("span", "nom-conversation", contact.nom));
+            // Nom + aperçu du dernier message (« Vous : ... » si c'est le mien)
+            const textes = creerElement("span", "textes-conversation");
+            textes.appendChild(creerElement("span", "nom-conversation", contact.nom));
+
+            const dernier = derniers.get(contact.id);
+
+            if (dernier) {
+                const debut = dernier.auteur === moi.id ? "Vous : " : "";
+                textes.appendChild(creerElement("span", "apercu-message", debut + dernier.texte));
+            }
+
+            lien.append(avatar, textes);
 
             // Pastille « Nouveau » (notification)
             if (nonLus.has(contact.id)) {
