@@ -102,6 +102,15 @@ est donc publique sans risque ; la clé `service_role` n'est jamais utilisée.
 - Contour visible lors de la navigation au clavier
 - Confirmation avant les actions définitives (suppression)
 
+## Comment tester
+
+1. Ouvrir le site dans un navigateur et **créer un compte** (S'inscrire).
+2. Dans une **fenêtre privée**, créer un **deuxième compte**.
+3. Avec le premier compte, page **Contacts** : inviter le deuxième par son courriel.
+4. Avec le deuxième compte : **accepter** l'invitation (elle apparaît sans recharger).
+5. Ouvrir la conversation des deux côtés et écrire : le message, l'indicateur
+   « en train d'écrire » et les réactions apparaissent en temps réel.
+
 ## Auteur
 
 Abdelaali Kaina — projet réalisé seul.
