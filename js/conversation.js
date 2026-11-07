@@ -25,6 +25,7 @@ const formMessage = document.getElementById("form-message");
 const champMessage = document.getElementById("message");
 const boutonEnvoyer = formMessage.querySelector("button[type='submit']");
 const compteurMessage = document.getElementById("compteur-message");
+const indicateurEcriture = document.getElementById("indicateur-ecriture");
 
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
@@ -39,6 +40,8 @@ let avecMessages = new Set();   // id des contacts ayant déjà échangé un mes
 let contactActuel = null;       // contact de la conversation ouverte
 let messages = [];              // messages de la conversation ouverte
 let enLigne = new Set();        // id des personnes connectées en ce moment
+let canalEcriture = null;       // canal Supabase de l'indicateur d'écriture
+let dernierSignal = 0;          // moment du dernier signal « j'écris »
 const nonLus = new Set();       // id des contacts ayant envoyé un nouveau message
 
 
@@ -383,6 +386,41 @@ function ecouterMessages() {
 
 
 /* ----------------------------------------------------------
+   Indicateur « en train d'écrire » (Supabase Broadcast)
+   Les signaux passent par le canal sans être enregistrés
+   dans la base de données.
+   ---------------------------------------------------------- */
+
+// Prévient le contact qu'on écrit (au plus une fois toutes les 2 secondes)
+function signalerEcriture() {
+    if (!canalEcriture || !contactActuel) {
+        return;
+    }
+
+    const maintenant = Date.now();
+
+    if (maintenant - dernierSignal < 2000) {
+        return;
+    }
+
+    dernierSignal = maintenant;
+    canalEcriture.send({
+        type: "broadcast",
+        event: "ecrit",
+        payload: { de: moi.id, a: contactActuel.id }
+    });
+}
+
+// Ouvre le canal partagé de l'indicateur d'écriture
+function ecouterEcriture() {
+    canalEcriture = client.channel("ecriture");
+    canalEcriture.subscribe();
+}
+
+champMessage.addEventListener("input", signalerEcriture);
+
+
+/* ----------------------------------------------------------
    Indicateur « en ligne » (Supabase Presence)
    ---------------------------------------------------------- */
 
@@ -530,6 +568,7 @@ async function demarrer() {
 
     ecouterMessages();
     ecouterPresence();
+    ecouterEcriture();
 
     // Conversation demandée dans l'adresse (ex. : depuis contact.html),
     // sinon la première conversation existante
