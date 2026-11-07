@@ -139,6 +139,7 @@ async function ouvrirConversation(contact) {
     avatarContact.style.backgroundColor = couleurAvatar(contact.nom);
     statutContact.hidden = false;
     formMessage.hidden = false;
+    indicateurEcriture.hidden = true;
 
     // Met à jour l'adresse (permet de recharger la même conversation)
     try {
@@ -352,6 +353,7 @@ function recevoirMessage(message) {
 
     if (contactActuel && idAutre === contactActuel.id) {
         ajouterMessage(message);
+        indicateurEcriture.hidden = true;   // le message est arrivé
     } else if (message.auteur !== moi.id) {
         nonLus.add(idAutre);   // notification : nouveau message ailleurs
     }
@@ -411,10 +413,32 @@ function signalerEcriture() {
     });
 }
 
+// Affiche « Marie est en train d'écrire » pendant 3 secondes
+// si le signal vient du contact de la conversation ouverte
+let minuterieEcriture = null;
+
+function afficherEcriture(signal) {
+    if (!contactActuel || signal.a !== moi.id || signal.de !== contactActuel.id) {
+        return;
+    }
+
+    indicateurEcriture.textContent = contactActuel.nom + " est en train d'écrire";
+    indicateurEcriture.hidden = false;
+
+    clearTimeout(minuterieEcriture);
+    minuterieEcriture = setTimeout(function () {
+        indicateurEcriture.hidden = true;
+    }, 3000);
+}
+
 // Ouvre le canal partagé de l'indicateur d'écriture
 function ecouterEcriture() {
     canalEcriture = client.channel("ecriture");
-    canalEcriture.subscribe();
+    canalEcriture
+        .on("broadcast", { event: "ecrit" }, function (message) {
+            afficherEcriture(message.payload);
+        })
+        .subscribe();
 }
 
 champMessage.addEventListener("input", signalerEcriture);
