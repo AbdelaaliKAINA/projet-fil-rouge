@@ -27,6 +27,10 @@ const boutonEnvoyer = formMessage.querySelector("button[type='submit']");
 const compteurMessage = document.getElementById("compteur-message");
 const indicateurEcriture = document.getElementById("indicateur-ecriture");
 
+// Délais de l'indicateur « en train d'écrire » (en millisecondes)
+const DELAI_SIGNAL_ECRITURE = 2000;      // un signal au plus toutes les 2 s
+const DUREE_INDICATEUR_ECRITURE = 3000;  // l'indicateur disparaît après 3 s
+
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
 
@@ -552,7 +556,7 @@ function signalerEcriture() {
 
     const maintenant = Date.now();
 
-    if (maintenant - dernierSignal < 2000) {
+    if (maintenant - dernierSignal < DELAI_SIGNAL_ECRITURE) {
         return;
     }
 
@@ -579,7 +583,7 @@ function afficherEcriture(signal) {
     clearTimeout(minuterieEcriture);
     minuterieEcriture = setTimeout(function () {
         indicateurEcriture.hidden = true;
-    }, 3000);
+    }, DUREE_INDICATEUR_ECRITURE);
 }
 
 // Ouvre le canal partagé de l'indicateur d'écriture
