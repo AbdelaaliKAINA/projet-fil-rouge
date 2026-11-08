@@ -402,6 +402,10 @@ function creerMessage(message) {
     const entete = creerElement("p", "message-entete");
     const heure = creerElement("time", "", formaterDate(message.cree_le));
     heure.dateTime = message.cree_le;
+    // Info-bulle avec la date complète au survol de l'heure
+    heure.title = new Date(message.cree_le).toLocaleString("fr-CA", {
+        dateStyle: "full", timeStyle: "short"
+    });
     entete.append(
         creerElement("strong", "", deMoi ? "Moi" : contactActuel.nom),
         heure
