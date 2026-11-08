@@ -1487,6 +1487,12 @@ input[type="checkbox"] {
         padding: 12px;
     }
 
+    /* Texte de 16 px minimum : évite le zoom automatique sur iPhone */
+    input,
+    select {
+        font-size: 16px;
+    }
+
     /* Contacts : recherche et ajout l'un sous l'autre */
     .actions-contacts {
         grid-template-columns: 1fr;
