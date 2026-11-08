@@ -433,6 +433,10 @@ function recevoirMessage(message) {
     if (contactActuel && idAutre === contactActuel.id) {
         ajouterMessage(message);
         indicateurEcriture.hidden = true;   // le message est arrivé
+
+        if (message.auteur !== moi.id) {
+            marquerCommeLus();              // lu tout de suite : la conversation est ouverte
+        }
     } else if (message.auteur !== moi.id) {
         nonLus.add(idAutre);   // notification : nouveau message ailleurs
     }
@@ -572,6 +576,13 @@ function mettreAJourCompteur() {
 }
 
 champMessage.addEventListener("input", mettreAJourCompteur);
+
+// Retour sur l'onglet : les messages arrivés entre-temps deviennent lus
+document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) {
+        marquerCommeLus();
+    }
+});
 
 // Touche Échap : efface le message en cours d'écriture
 champMessage.addEventListener("keydown", function (event) {
