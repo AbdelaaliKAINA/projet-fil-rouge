@@ -311,6 +311,15 @@ async function demarrer() {
 
     await actualiser();
 
+    // Mon courriel, avec un bouton pour le copier
+    document.getElementById("mon-courriel").textContent = moi.courriel;
+    const boutonCopier = document.getElementById("bouton-copier-courriel");
+    boutonCopier.addEventListener("click", async function () {
+        await navigator.clipboard.writeText(moi.courriel);
+        boutonCopier.textContent = "Copié !";
+        setTimeout(function () { boutonCopier.textContent = "Copier"; }, 1500);
+    });
+
     // Temps réel : une invitation reçue ou acceptée apparaît sans recharger
     client
         .channel("contacts-" + moi.id)
