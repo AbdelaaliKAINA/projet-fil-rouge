@@ -1205,6 +1205,15 @@ input[type="checkbox"] {
     75% { content: "..."; }
 }
 
+/* Champ de recherche à droite de l'en-tête de conversation
+   (input. : plus précis que la règle générale des champs) */
+input.recherche-conversation {
+    width: 210px;
+    margin-left: auto;
+    padding: 9px 12px;
+    font-size: 14px;
+}
+
 /* Bouton retour : caché sur ordinateur */
 .bouton-retour {
     display: none;
@@ -1492,6 +1501,10 @@ input[type="checkbox"] {
 
     .bouton-retour {
         display: block;
+    }
+
+    input.recherche-conversation {
+        width: 120px;
     }
 
     .liste-messages {
