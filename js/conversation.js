@@ -404,6 +404,17 @@ function creerMessage(message) {
         heure
     );
 
+    // Bouton « Copier » : copie le texte du message dans le presse-papiers
+    const copier = creerElement("button", "bouton-copier-message", "Copier");
+    copier.type = "button";
+    copier.setAttribute("aria-label", "Copier ce message");
+    copier.addEventListener("click", async function () {
+        await navigator.clipboard.writeText(message.texte);
+        copier.textContent = "Copié !";
+        setTimeout(function () { copier.textContent = "Copier"; }, 1500);
+    });
+    entete.appendChild(copier);
+
     // Bouton « Supprimer » sur mes propres messages
     if (deMoi) {
         const supprimer = creerElement("button", "bouton-supprimer-message", "Supprimer");
