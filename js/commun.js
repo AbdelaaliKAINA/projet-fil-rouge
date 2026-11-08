@@ -201,9 +201,15 @@ async function chargerRelations(moi) {
    Outils d'affichage
    ---------------------------------------------------------- */
 
-// Crée un élément HTML avec une classe et un texte.
-// textContent est utilisé (et non innerHTML) pour qu'un texte
-// saisi ne puisse jamais être interprété comme du HTML.
+/**
+ * Crée un élément HTML avec une classe et un texte.
+ * textContent est utilisé (et non innerHTML) pour qu'un texte
+ * saisi ne puisse jamais être interprété comme du HTML.
+ * @param {string} balise  nom de la balise (ex. : "p")
+ * @param {string} [classe] classe CSS
+ * @param {string} [texte]  texte affiché
+ * @returns {HTMLElement}
+ */
 function creerElement(balise, classe, texte) {
     const element = document.createElement(balise);
 
@@ -221,8 +227,12 @@ function creerElement(balise, classe, texte) {
 // Couleurs possibles pour les avatars
 const COULEURS_AVATAR = ["#2563eb", "#7c3aed", "#db2777", "#ea580c", "#16a34a", "#0891b2", "#4f46e5", "#be123c"];
 
-// Choisit toujours la même couleur pour un même nom
-// (somme des codes des lettres, modulo le nombre de couleurs)
+/**
+ * Choisit toujours la même couleur pour un même nom
+ * (somme des codes des lettres, modulo le nombre de couleurs).
+ * @param {string} nom
+ * @returns {string} couleur hexadécimale
+ */
 function couleurAvatar(nom) {
     let somme = 0;
 
@@ -248,7 +258,11 @@ function trierParNom(personnes) {
     });
 }
 
-// Traduit les erreurs de Supabase en messages clairs en français
+/**
+ * Traduit les erreurs de Supabase en messages clairs en français.
+ * @param {{message?: string}} erreur erreur renvoyée par Supabase
+ * @returns {string}
+ */
 function messageErreur(erreur) {
     const texte = (erreur && erreur.message) || "";
 
