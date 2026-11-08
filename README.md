@@ -87,7 +87,8 @@ est donc publique sans risque ; la clé `service_role` n'est jamais utilisée.
 ## Installation
 
 1. Créer un projet sur [supabase.com](https://supabase.com).
-2. Dans **SQL Editor**, exécuter tout le fichier `supabase/schema.sql`.
+2. Dans **SQL Editor**, exécuter tout le fichier `supabase/schema.sql`,
+   puis `supabase/02_lecture_messages.sql` et `supabase/03_suppression_messages.sql`.
 3. Dans **Authentication > Sign In / Providers > Email**, désactiver
    « Confirm email » (connexion directe après l'inscription).
 4. Dans **Authentication > URL Configuration**, mettre l'adresse du site
