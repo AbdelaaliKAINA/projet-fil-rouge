@@ -45,6 +45,11 @@ reçus en temps réel.
 - Compteur de caractères, touche Échap pour effacer, raccourci « / » pour rechercher
 - Pastille du nombre d'invitations dans le menu, avatars colorés
 - Changement du mot de passe, date d'inscription, page 404 personnalisée
+- Accusé de lecture « Vu » et suppression de ses propres messages (temps réel)
+- Recherche dans une conversation, bouton « Copier », choix rapide d'emojis
+- Version téléphone : liste ou conversation en plein écran avec bouton retour
+- Jauge de force du mot de passe, statistiques du compte, téléchargement des conversations
+- Bandeau hors ligne et animations réduites sur demande (accessibilité)
 
 ## Pages
 
