@@ -1126,8 +1126,27 @@ input[type="checkbox"] {
 }
 
 .message:hover .bouton-supprimer-message,
-.bouton-supprimer-message:focus {
+.bouton-supprimer-message:focus,
+.message:hover .bouton-copier-message,
+.bouton-copier-message:focus {
     opacity: 1;
+}
+
+/* Bouton « Copier » : même apparence discrète */
+.bouton-copier-message {
+    margin-left: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--texte-doux);
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.bouton-copier-message:hover {
+    color: var(--bleu);
+    text-decoration: underline;
 }
 
 .bouton-supprimer-message:hover {
@@ -1137,7 +1156,8 @@ input[type="checkbox"] {
 
 /* Écran tactile : pas de survol, le bouton reste visible */
 @media (hover: none) {
-    .bouton-supprimer-message {
+    .bouton-supprimer-message,
+    .bouton-copier-message {
         opacity: 1;
     }
 }
