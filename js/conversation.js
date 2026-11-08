@@ -509,6 +509,9 @@ function ecouterMessages() {
         .on("postgres_changes",
             { event: "UPDATE", schema: "public", table: "messages" },
             function (changement) { recevoirModification(changement.new); })
+        .on("postgres_changes",
+            { event: "DELETE", schema: "public", table: "messages" },
+            function (changement) { retirerMessage(changement.old.id); })
         .subscribe();
 }
 
