@@ -32,6 +32,9 @@ const indicateurEcriture = document.getElementById("indicateur-ecriture");
 const DELAI_SIGNAL_ECRITURE = 2000;      // un signal au plus toutes les 2 s
 const DUREE_INDICATEUR_ECRITURE = 3000;  // l'indicateur disparaît après 3 s
 
+// Emojis proposés par le bouton 😊 de la zone d'écriture
+const EMOJIS = ["😊", "😂", "👍", "❤️", "🎉", "😮", "😢", "🙏"];
+
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
 
@@ -683,6 +686,39 @@ document.addEventListener("visibilitychange", function () {
     if (!document.hidden) {
         marquerCommeLus();
     }
+});
+
+// Choix d'emoji : ouvre ou ferme la petite fenêtre
+const boutonEmoji = document.getElementById("bouton-emoji");
+const choixEmoji = document.getElementById("choix-emoji");
+
+function basculerEmojis(ouvrir) {
+    choixEmoji.hidden = !ouvrir;
+    boutonEmoji.setAttribute("aria-expanded", String(ouvrir));
+}
+
+// Insère l'emoji à la position du curseur dans le message
+function insererEmoji(emoji) {
+    const debut = champMessage.selectionStart ?? champMessage.value.length;
+    const fin = champMessage.selectionEnd ?? debut;
+
+    champMessage.value = champMessage.value.slice(0, debut) + emoji + champMessage.value.slice(fin);
+    champMessage.focus();
+    champMessage.setSelectionRange(debut + emoji.length, debut + emoji.length);
+
+    mettreAJourCompteur();
+    basculerEmojis(false);
+}
+
+EMOJIS.forEach(function (emoji) {
+    const bouton = creerElement("button", "", emoji);
+    bouton.type = "button";
+    bouton.addEventListener("click", function () { insererEmoji(emoji); });
+    choixEmoji.appendChild(bouton);
+});
+
+boutonEmoji.addEventListener("click", function () {
+    basculerEmojis(choixEmoji.hidden);
 });
 
 // Recherche dans la conversation pendant la frappe
