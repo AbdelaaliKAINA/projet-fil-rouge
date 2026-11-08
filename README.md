@@ -7,6 +7,12 @@ reçus en temps réel.
 🔗 **Site en ligne :** https://abdelaalikaina.github.io/projet-fil-rouge/
 📁 **Dépôt GitHub :** https://github.com/AbdelaaliKAINA/projet-fil-rouge
 
+## Aperçu
+
+| Accueil | Conversation | Téléphone |
+|---|---|---|
+| ![Page d'accueil](docs/captures/accueil.png) | ![Conversation](docs/captures/conversation.png) | ![Version téléphone](docs/captures/telephone.png) |
+
 ## Fonctionnalités principales
 
 - **Inscription et connexion** avec Supabase Auth (« Se souvenir de moi », mot de passe oublié)
