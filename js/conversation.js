@@ -460,6 +460,7 @@ function recevoirModification(message) {
 
     if (existant) {
         existant.reaction = message.reaction;
+        existant.lu_le = message.lu_le;     // accusé « Vu » en temps réel
         afficherMessages();
     }
 }
