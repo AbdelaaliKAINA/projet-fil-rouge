@@ -336,8 +336,29 @@ async function supprimerMessage(message) {
 
 // Retire un message de l'affichage
 function retirerMessage(id) {
-    messages = messages.filter(function (m) { return m.id !== id; });
-    afficherMessages();
+    const affiche = messages.some(function (m) { return m.id === id; });
+
+    if (affiche) {
+        messages = messages.filter(function (m) { return m.id !== id; });
+        afficherMessages();
+    }
+
+    // Si c'était le dernier message d'une conversation, on met l'aperçu à jour
+    derniers.forEach(function (dernier, idContact) {
+        if (dernier.id !== id) {
+            return;
+        }
+
+        const ouverte = contactActuel && idContact === contactActuel.id;
+
+        if (ouverte && messages.length > 0) {
+            derniers.set(idContact, messages[messages.length - 1]);
+        } else {
+            derniers.delete(idContact);
+        }
+    });
+
+    afficherListeConversations();
 }
 
 // Construit l'élément HTML d'un message
