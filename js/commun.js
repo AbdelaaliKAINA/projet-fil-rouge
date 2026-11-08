@@ -287,3 +287,30 @@ function messageErreur(erreur) {
 
     return "Une erreur est survenue : " + texte;
 }
+
+
+/* ----------------------------------------------------------
+   Connexion Internet
+   ---------------------------------------------------------- */
+
+// Affiche un bandeau quand la connexion Internet est perdue
+function afficherEtatConnexion() {
+    let bandeau = document.getElementById("bandeau-hors-ligne");
+
+    if (navigator.onLine) {
+        if (bandeau) bandeau.remove();
+        return;
+    }
+
+    if (!bandeau) {
+        bandeau = creerElement("p", "bandeau-hors-ligne",
+            "Vous êtes hors ligne. Vérifiez votre connexion Internet.");
+        bandeau.id = "bandeau-hors-ligne";
+        bandeau.setAttribute("role", "alert");
+        document.body.prepend(bandeau);
+    }
+}
+
+window.addEventListener("online", afficherEtatConnexion);
+window.addEventListener("offline", afficherEtatConnexion);
+afficherEtatConnexion();
