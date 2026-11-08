@@ -159,6 +159,7 @@ async function ouvrirConversation(contact) {
     statutContact.hidden = false;
     formMessage.hidden = false;
     indicateurEcriture.hidden = true;
+    document.querySelector(".messagerie").classList.add("conversation-ouverte");
 
     // Met à jour l'adresse (permet de recharger la même conversation)
     try {
@@ -649,6 +650,11 @@ document.addEventListener("visibilitychange", function () {
     if (!document.hidden) {
         marquerCommeLus();
     }
+});
+
+// Bouton retour (téléphone) : revient à la liste des conversations
+document.getElementById("bouton-retour").addEventListener("click", function () {
+    document.querySelector(".messagerie").classList.remove("conversation-ouverte");
 });
 
 // Touche Échap : efface le message en cours d'écriture
