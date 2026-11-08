@@ -20,6 +20,7 @@ const statutContact = document.getElementById("statut-contact");
 const texteStatut = document.getElementById("texte-statut");
 const listeMessages = document.getElementById("liste-messages");
 const boutonDescendre = document.getElementById("bouton-descendre");
+const champRechercheConversation = document.getElementById("recherche-conversation");
 
 const formMessage = document.getElementById("form-message");
 const champMessage = document.getElementById("message");
@@ -165,6 +166,10 @@ async function ouvrirConversation(contact) {
     indicateurEcriture.hidden = true;
     document.querySelector(".messagerie").classList.add("conversation-ouverte");
 
+    // Recherche vidée à chaque changement de conversation
+    champRechercheConversation.hidden = false;
+    champRechercheConversation.value = "";
+
     // Met à jour l'adresse (permet de recharger la même conversation)
     try {
         history.replaceState(null, "", "?contact=" + encodeURIComponent(contact.id));
@@ -275,10 +280,23 @@ function afficherMessages() {
         return;
     }
 
+    // Recherche : seuls les messages qui contiennent le texte cherché
+    const terme = champRechercheConversation.value.trim().toLowerCase();
+    const visibles = messages.filter(function (m) {
+        return m.texte.toLowerCase().includes(terme);
+    });
+
+    if (visibles.length === 0) {
+        listeMessages.appendChild(
+            creerElement("li", "message-vide", "Aucun message ne contient « " + terme + " ».")
+        );
+        return;
+    }
+
     // Un séparateur de date est ajouté à chaque nouveau jour
     let jourPrecedent = "";
 
-    messages.forEach(function (message) {
+    visibles.forEach(function (message) {
         const jour = libelleJour(message.cree_le);
 
         if (jour !== jourPrecedent) {
@@ -655,6 +673,9 @@ document.addEventListener("visibilitychange", function () {
         marquerCommeLus();
     }
 });
+
+// Recherche dans la conversation pendant la frappe
+champRechercheConversation.addEventListener("input", afficherMessages);
 
 // Bouton retour (téléphone) : revient à la liste des conversations
 document.getElementById("bouton-retour").addEventListener("click", function () {
