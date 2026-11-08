@@ -1198,6 +1198,19 @@ input[type="checkbox"] {
     75% { content: "..."; }
 }
 
+/* Bouton retour : caché sur ordinateur */
+.bouton-retour {
+    display: none;
+    margin-right: 8px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: var(--rayon);
+    background: none;
+    color: var(--bleu);
+    font-size: 22px;
+    cursor: pointer;
+}
+
 /* Zone d'écriture */
 .form-message {
     display: flex;
@@ -1449,6 +1462,16 @@ input[type="checkbox"] {
     .liste-conversations {
         border-right: none;
         border-bottom: 1px solid var(--bordure);
+    }
+
+    /* Une seule vue à la fois : la liste OU la conversation ouverte */
+    .messagerie.conversation-ouverte .liste-conversations,
+    .messagerie:not(.conversation-ouverte) .conversation {
+        display: none;
+    }
+
+    .bouton-retour {
+        display: block;
     }
 
     .liste-messages {
