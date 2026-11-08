@@ -1414,6 +1414,19 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+/* Bandeau « Vous êtes hors ligne » */
+.bandeau-hors-ligne {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    margin: 0;
+    padding: 12px 20px;
+    background-color: var(--orange-fond);
+    color: var(--orange-texte);
+    font-weight: 600;
+    text-align: center;
+}
+
 /* Bandeau affiché si js/config.js n'est pas rempli */
 .bandeau-erreur {
     margin: 0;
