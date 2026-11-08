@@ -152,7 +152,20 @@ async function demarrer() {
 
     if (moi) {
         afficherCompte();
+        afficherStatistiques();
     }
+}
+
+// Nombre de contacts et de messages envoyés
+async function afficherStatistiques() {
+    const relations = await chargerRelations(moi);
+    const nbContacts = relations.filter(function (r) { return r.statut === "accepte"; }).length;
+
+    const { data } = await client.from("messages").select("id").eq("auteur", moi.id);
+    const nbMessages = data ? data.length : 0;
+
+    document.getElementById("statistiques-compte").textContent =
+        nbContacts + " contact(s) · " + nbMessages + " message(s) envoyé(s)";
 }
 
 demarrer();
