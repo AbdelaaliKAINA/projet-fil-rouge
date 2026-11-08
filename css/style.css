@@ -820,6 +820,36 @@ input[type="checkbox"] {
     gap: 6px;
 }
 
+/* Jauge de force du mot de passe : rouge → orange → vert */
+.force-mdp {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    color: var(--texte-doux);
+    font-size: 13px;
+}
+
+.jauge {
+    flex: 1;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 3px;
+    background-color: var(--bordure);
+}
+
+#jauge-mdp {
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: var(--rouge);
+    transition: width 0.2s;
+}
+
+#jauge-mdp[data-niveau="2"] { background-color: #f59e0b; }
+#jauge-mdp[data-niveau="3"],
+#jauge-mdp[data-niveau="4"] { background-color: var(--vert); }
+
 .pied-accueil {
     display: flex;
     align-items: center;
