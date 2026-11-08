@@ -1497,6 +1497,15 @@ input[type="checkbox"] {
     .actions-contacts {
         grid-template-columns: 1fr;
     }
+
+    /* Boutons des contacts sur toute la largeur */
+    .personne-actions {
+        width: 100%;
+    }
+
+    .personne-actions .bouton {
+        flex: 1;
+    }
 }
 
 
