@@ -1142,6 +1142,13 @@ input[type="checkbox"] {
     }
 }
 
+/* Écran tactile : boutons de réaction plus faciles à toucher */
+@media (pointer: coarse) {
+    .bouton-reaction {
+        padding: 8px 12px;
+    }
+}
+
 /* Lien dans un message */
 .lien-message {
     color: var(--bleu-survol);
