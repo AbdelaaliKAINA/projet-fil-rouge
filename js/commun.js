@@ -71,7 +71,11 @@ if (!configurationOk) {
    Personne connectée
    ---------------------------------------------------------- */
 
-// Renvoie { id, nom, courriel } de la personne connectée, ou null
+/**
+ * Renvoie la personne connectée.
+ * @returns {Promise<{id: string, nom: string, courriel: string, cree_le?: string} | null>}
+ *          le profil, ou null si personne n'est connecté
+ */
 async function obtenirUtilisateur() {
     if (!client) {
         return null;
@@ -131,8 +135,11 @@ async function afficherNombreInvitations(moi) {
     pastille.setAttribute("aria-label", nombre + " invitation(s) en attente");
 }
 
-// À appeler au début des pages réservées aux personnes connectées.
-// Renvoie la personne connectée, ou redirige vers la connexion.
+/**
+ * À appeler au début des pages réservées aux personnes connectées.
+ * Redirige vers index.html si personne n'est connecté.
+ * @returns {Promise<object | null>} la personne connectée
+ */
 async function exigerConnexion() {
     const utilisateur = await obtenirUtilisateur();
 
@@ -152,8 +159,12 @@ async function exigerConnexion() {
    Contacts
    ---------------------------------------------------------- */
 
-// Renvoie toutes les relations de la personne connectée :
-// [{ id, statut, envoyeeParMoi, personne: { id, nom, courriel } }]
+/**
+ * Renvoie toutes les relations (invitations et contacts) de la personne connectée.
+ * @param {{id: string}} moi la personne connectée
+ * @returns {Promise<Array<{id: number, statut: string, envoyeeParMoi: boolean,
+ *          personne: {id: string, nom: string, courriel: string}}>>}
+ */
 async function chargerRelations(moi) {
     const { data, error } = await client
         .from("contacts")
