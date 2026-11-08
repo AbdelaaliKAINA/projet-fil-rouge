@@ -1074,6 +1074,14 @@ input[type="checkbox"] {
     text-transform: capitalize;
 }
 
+/* « Vu à 14 h 31 » aligné à droite sous mon dernier message */
+.liste-messages > li.message-vu {
+    justify-content: flex-end;
+    margin-top: -10px;
+    color: var(--texte-doux);
+    font-size: 12px;
+}
+
 .message-vide {
     justify-content: center;
     color: var(--texte-doux);
