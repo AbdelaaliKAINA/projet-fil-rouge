@@ -116,6 +116,37 @@ boutonNotifications.addEventListener("click", async function () {
 
 afficherEtatNotifications();
 
+// Téléchargement de toutes mes conversations en fichier texte
+document.getElementById("bouton-exporter").addEventListener("click", async function () {
+    const relations = await chargerRelations(moi);
+    const noms = new Map([[moi.id, moi.nom]]);
+    relations.forEach(function (r) { noms.set(r.personne.id, r.personne.nom); });
+
+    const { data, error } = await client
+        .from("messages")
+        .select("auteur, destinataire, texte, cree_le")
+        .order("cree_le");
+
+    if (error) {
+        alert(messageErreur(error));
+        return;
+    }
+
+    // Une ligne par message : [date] Auteur → Destinataire : texte
+    const lignes = data.map(function (m) {
+        const date = new Date(m.cree_le).toLocaleString("fr-CA");
+        return "[" + date + "] " + (noms.get(m.auteur) || "?") + " → " +
+            (noms.get(m.destinataire) || "?") + " : " + m.texte;
+    });
+
+    const fichier = new Blob([lignes.join("\n")], { type: "text/plain;charset=utf-8" });
+    const lien = document.createElement("a");
+    lien.href = URL.createObjectURL(fichier);
+    lien.download = "mes-conversations.txt";
+    lien.click();
+    URL.revokeObjectURL(lien.href);
+});
+
 // Déconnexion : on ferme la session et on revient à l'accueil
 boutonDeconnexion.addEventListener("click", async function () {
     await client.auth.signOut();
