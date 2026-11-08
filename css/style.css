@@ -1260,6 +1260,43 @@ input.recherche-conversation {
     flex: 1;
 }
 
+/* Bouton 😊 et fenêtre de choix des emojis */
+.bouton-emoji {
+    padding: 6px;
+    border: none;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.choix-emoji {
+    position: absolute;
+    bottom: 86px;
+    left: 25px;
+    z-index: 6;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 8px;
+    background-color: var(--blanc);
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon-grand);
+    box-shadow: var(--ombre);
+}
+
+.choix-emoji button {
+    padding: 6px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.choix-emoji button:hover {
+    background-color: var(--bleu-pale);
+}
+
 /* Compteur de caractères du message */
 .compteur {
     align-self: center;
