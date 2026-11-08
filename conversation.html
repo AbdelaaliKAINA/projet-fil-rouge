@@ -106,6 +106,13 @@
             <!-- Formulaire d'envoi d'un message -->
             <form id="form-message" class="form-message" hidden>
                 <label for="message" class="visuellement-cache">Message :</label>
+
+                <!-- Choix rapide d'un emoji -->
+                <button type="button" id="bouton-emoji" class="bouton-emoji"
+                        aria-label="Ajouter un emoji" aria-expanded="false"
+                        aria-controls="choix-emoji">😊</button>
+                <div id="choix-emoji" class="choix-emoji" role="group" aria-label="Emojis" hidden></div>
+
                 <input type="text" id="message" name="message"
                        placeholder="Écrire un message..." autocomplete="off"
                        maxlength="1000" required>
