@@ -181,7 +181,7 @@ async function chargerMessages() {
 
     const { data, error } = await client
         .from("messages")
-        .select("id, auteur, destinataire, texte, reaction, cree_le")
+        .select("id, auteur, destinataire, texte, reaction, cree_le, lu_le")
         .or(
             "and(auteur.eq." + moi.id + ",destinataire.eq." + idContact + ")," +
             "and(auteur.eq." + idContact + ",destinataire.eq." + moi.id + ")"
@@ -202,6 +202,29 @@ async function chargerMessages() {
 
     messages = data;
     afficherMessages();
+    marquerCommeLus();
+}
+
+// Marque comme lus les messages reçus de ce contact (accusé « Vu »)
+async function marquerCommeLus() {
+    if (!contactActuel || document.hidden) {
+        return;
+    }
+
+    const aMarquer = messages.filter(function (m) {
+        return m.auteur === contactActuel.id && !m.lu_le;
+    });
+
+    if (aMarquer.length === 0) {
+        return;
+    }
+
+    await client
+        .from("messages")
+        .update({ lu_le: new Date().toISOString() })
+        .eq("auteur", contactActuel.id)
+        .eq("destinataire", moi.id)
+        .is("lu_le", null);
 }
 
 // Formate la date d'un message : heure seule si c'est aujourd'hui,
@@ -589,7 +612,7 @@ formMessage.addEventListener("submit", async function (event) {
     const { data, error } = await client
         .from("messages")
         .insert({ auteur: moi.id, destinataire: contactActuel.id, texte: texte })
-        .select("id, auteur, destinataire, texte, reaction, cree_le")
+        .select("id, auteur, destinataire, texte, reaction, cree_le, lu_le")
         .single();
 
     boutonEnvoyer.disabled = false;
