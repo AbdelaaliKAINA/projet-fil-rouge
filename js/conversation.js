@@ -284,6 +284,15 @@ function afficherMessages() {
         listeMessages.appendChild(creerMessage(message));
     });
 
+    // « Vu à 14 h 31 » si le dernier message est le mien et qu'il a été lu
+    const dernier = messages[messages.length - 1];
+
+    if (dernier.auteur === moi.id && dernier.lu_le) {
+        listeMessages.appendChild(
+            creerElement("li", "message-vu", "Vu à " + formaterDate(dernier.lu_le))
+        );
+    }
+
     // Fait défiler jusqu'au dernier message
     listeMessages.scrollTop = listeMessages.scrollHeight;
 }
