@@ -1113,6 +1113,35 @@ input[type="checkbox"] {
     overflow-wrap: anywhere;
 }
 
+/* Bouton « Supprimer » : visible au survol du message */
+.bouton-supprimer-message {
+    margin-left: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--texte-doux);
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.message:hover .bouton-supprimer-message,
+.bouton-supprimer-message:focus {
+    opacity: 1;
+}
+
+.bouton-supprimer-message:hover {
+    color: var(--rouge);
+    text-decoration: underline;
+}
+
+/* Écran tactile : pas de survol, le bouton reste visible */
+@media (hover: none) {
+    .bouton-supprimer-message {
+        opacity: 1;
+    }
+}
+
 /* Lien dans un message */
 .lien-message {
     color: var(--bleu-survol);
