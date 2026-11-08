@@ -84,6 +84,14 @@ personne ne lit que ses propres messages et contacts, n'écrit qu'en son nom,
 et seulement à un contact accepté. La clé `anon` présente dans `js/config.js`
 est donc publique sans risque ; la clé `service_role` n'est jamais utilisée.
 
+| Règle | Effet |
+|---|---|
+| `messages_lecture` | Je lis seulement les messages que j'ai envoyés ou reçus |
+| `messages_envoi` | J'écris en mon nom, et seulement à un contact accepté |
+| `messages_suppression` | Je supprime seulement mes propres messages |
+| `contacts_acceptation` | Seul le destinataire accepte une invitation |
+| `verifier_lecture` (trigger) | Seul le destinataire marque un message comme « Vu » |
+
 ## Installation
 
 1. Créer un projet sur [supabase.com](https://supabase.com).
