@@ -84,6 +84,24 @@ document.querySelectorAll("[data-vue]").forEach(function (bouton) {
     });
 });
 
+// Force du mot de passe : 1 point par critère rempli
+// (8 caractères, une majuscule, un chiffre, un caractère spécial)
+const NIVEAUX_FORCE = ["Très faible", "Faible", "Moyen", "Bon", "Excellent"];
+
+document.getElementById("mdp-inscription").addEventListener("input", function (event) {
+    const mdp = event.target.value;
+    const points =
+        (mdp.length >= 8 ? 1 : 0) +
+        (/[A-Z]/.test(mdp) ? 1 : 0) +
+        (/[0-9]/.test(mdp) ? 1 : 0) +
+        (/[^A-Za-z0-9]/.test(mdp) ? 1 : 0);
+
+    const jauge = document.getElementById("jauge-mdp");
+    jauge.style.width = (mdp ? (points + 1) * 20 : 0) + "%";
+    jauge.dataset.niveau = points;
+    document.getElementById("texte-force-mdp").textContent = mdp ? NIVEAUX_FORCE[points] : "";
+});
+
 // Boutons « œil » : afficher ou masquer le mot de passe
 document.querySelectorAll(".bouton-oeil").forEach(function (bouton) {
     bouton.addEventListener("click", function () {
