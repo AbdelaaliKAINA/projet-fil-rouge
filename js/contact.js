@@ -280,10 +280,15 @@ formInvitation.addEventListener("submit", async function (event) {
         return;
     }
 
-    // 3. Créer l'invitation
+    // 3. Créer l'invitation (bouton désactivé pendant l'envoi)
+    const boutonInviter = formInvitation.querySelector("button[type='submit']");
+    boutonInviter.disabled = true;
+
     const { error } = await client
         .from("contacts")
         .insert({ demandeur: moi.id, destinataire: personne.id });
+
+    boutonInviter.disabled = false;
 
     if (error) {
         messageInvitation.textContent = error.code === "23505"
