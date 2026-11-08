@@ -108,6 +108,18 @@ a {
     top: 12px;
 }
 
+/* Accessibilité : animations coupées si la personne l'a demandé
+   dans les réglages de son système (réduire les animations) */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* Contour visible au clavier (accessibilité) */
 :focus-visible {
     outline: 3px solid rgba(37, 99, 235, 0.4);
