@@ -183,6 +183,12 @@ formInscription.addEventListener("submit", async function (event) {
         return;
     }
 
+    // Un nom fait seulement d'espaces est refusé
+    if (champNomInscription.value.trim() === "") {
+        erreurInscription.textContent = "Entrez votre nom.";
+        return;
+    }
+
     localStorage.setItem(CLE_SE_SOUVENIR, "oui");
     patienter(formInscription, true);
 
