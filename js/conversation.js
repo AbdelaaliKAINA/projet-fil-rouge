@@ -318,6 +318,28 @@ function creerTexteAvecLiens(texte) {
     return paragraphe;
 }
 
+// Supprime un de mes messages, après confirmation
+async function supprimerMessage(message) {
+    if (!confirm("Supprimer ce message ?")) {
+        return;
+    }
+
+    const { error } = await client.from("messages").delete().eq("id", message.id);
+
+    if (error) {
+        alert(messageErreur(error));
+        return;
+    }
+
+    retirerMessage(message.id);
+}
+
+// Retire un message de l'affichage
+function retirerMessage(id) {
+    messages = messages.filter(function (m) { return m.id !== id; });
+    afficherMessages();
+}
+
 // Construit l'élément HTML d'un message
 function creerMessage(message) {
     const deMoi = message.auteur === moi.id;
@@ -337,6 +359,17 @@ function creerMessage(message) {
         creerElement("strong", "", deMoi ? "Moi" : contactActuel.nom),
         heure
     );
+
+    // Bouton « Supprimer » sur mes propres messages
+    if (deMoi) {
+        const supprimer = creerElement("button", "bouton-supprimer-message", "Supprimer");
+        supprimer.type = "button";
+        supprimer.setAttribute("aria-label", "Supprimer ce message");
+        supprimer.addEventListener("click", function () {
+            supprimerMessage(message);
+        });
+        entete.appendChild(supprimer);
+    }
 
     const texte = creerTexteAvecLiens(message.texte);
 
