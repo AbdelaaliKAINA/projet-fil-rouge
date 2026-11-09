@@ -106,6 +106,9 @@ async function ouvrirSalon(salon) {
     formMessage.hidden = false;
     erreurMessage.textContent = "";
 
+    // Seule la personne qui a créé le salon peut le supprimer
+    boutonSupprimerSalon.hidden = salon.cree_par !== moi.id;
+
     afficherSalons();
     await chargerMessages();
     champMessage.focus();
@@ -310,6 +313,28 @@ function retirerSalon(id) {
 
     afficherSalons();
 }
+
+
+/* ----------------------------------------------------------
+   Suppression d'un salon (créateur seulement)
+   ---------------------------------------------------------- */
+
+boutonSupprimerSalon.addEventListener("click", async function () {
+    const salon = salonActuel;
+
+    if (!salon || !confirm("Supprimer le salon « " + salon.nom + " » et tous ses messages ?")) {
+        return;
+    }
+
+    const { error } = await client.from("salons").delete().eq("id", salon.id);
+
+    if (error) {
+        erreurMessage.textContent = messageErreur(error);
+        return;
+    }
+
+    retirerSalon(salon.id);
+});
 
 
 /* ----------------------------------------------------------
