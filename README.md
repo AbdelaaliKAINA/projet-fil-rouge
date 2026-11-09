@@ -17,7 +17,9 @@ reçus en temps réel.
 
 - **Inscription et connexion** avec Supabase Auth (« Se souvenir de moi », mot de passe oublié)
 - **Liste de contacts** : seuls les contacts acceptés peuvent s'écrire
-- **Liste des conversations** (salons à deux)
+- **Salons de groupe** : créer un salon (nom unique), liste des salons,
+  messages de groupe en temps réel (50 derniers)
+- **Conversations privées** à deux, entre contacts acceptés
 - **Envoi et réception des messages en temps réel** (Supabase Realtime)
 - **Affichage horodaté** des messages (balise `<time datetime="...">`)
 
@@ -58,6 +60,7 @@ reçus en temps réel.
 | `index.html` | Connexion, inscription, mot de passe oublié |
 | `conversation.html` | Conversations, messages en temps réel, réactions |
 | `contact.html` | Recherche, invitations et liste des contacts |
+| `salons.html` | Salons de groupe : liste, création, messages en temps réel |
 | `parametre.html` | Compte, déconnexion, suppression du compte |
 
 ## Structure du projet
@@ -68,6 +71,7 @@ projet-fil-rouge/
 ├── conversation.html
 ├── contact.html
 ├── parametre.html
+├── salons.html
 ├── README.md
 ├── css/
 │   └── style.css         Styles de toutes les pages (variables, responsive)
@@ -77,6 +81,7 @@ projet-fil-rouge/
 │   ├── connexion.js      Connexion, inscription, mot de passe oublié
 │   ├── conversation.js   Messages, temps réel, présence, réactions
 │   ├── contact.js        Invitations et contacts
+│   ├── salons.js         Salons de groupe
 │   └── parametre.js      Compte, déconnexion, suppression
 └── supabase/
     └── schema.sql        Tables, règles de sécurité (RLS) et temps réel
