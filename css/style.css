@@ -1570,6 +1570,40 @@ input.recherche-conversation {
     font-size: 14px;
 }
 
+/* Choix du thème : trois boutons côte à côte */
+.choix-theme {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.choix-theme label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 0;
+    padding: 10px 8px;
+    border: 1px solid var(--bordure-champ);
+    border-radius: var(--rayon);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Choix actif en bleu */
+.choix-theme label:has(input:checked) {
+    border-color: var(--bleu);
+    background-color: var(--bleu-pale);
+    color: var(--bleu);
+}
+
+.choix-theme input {
+    accent-color: var(--bleu);
+}
+
 /* Formulaire de modification du nom */
 .form-nom {
     display: grid;
