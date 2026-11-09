@@ -46,6 +46,15 @@ function afficherCompte() {
 }
 
 // Modification du nom affiché (visible par les contacts)
+// Choix du thème : coche le choix actuel, puis l'applique à chaque changement
+document.querySelectorAll('input[name="theme"]').forEach(function (bouton) {
+    bouton.checked = bouton.value === lireTheme();
+
+    bouton.addEventListener("change", function () {
+        choisirTheme(bouton.value);   // fonction de js/theme.js
+    });
+});
+
 formNom.addEventListener("submit", async function (event) {
     event.preventDefault();
 
