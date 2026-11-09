@@ -62,6 +62,49 @@
 }
 
 
+/* Thème sombre : mêmes variables, autres valeurs.
+   L'attribut data-theme est posé sur <html> par js/theme.js */
+:root[data-theme="sombre"] {
+    color-scheme: dark;
+
+    --bleu-fonce: #dbe7ff;
+    --bleu: #4f8ff7;
+    --bleu-survol: #2563eb;
+    --bleu-clair: #1e3a8a;
+    --bleu-pale: #172554;
+    --vert: #22c55e;
+    --rouge: #ef4444;
+    --rouge-survol: #f87171;
+    --orange-fond: #431407;
+    --orange-texte: #fdba74;
+
+    --texte: #e2e8f0;
+    --texte-doux: #94a3b8;
+    --texte-secondaire: #cbd5e1;
+    --texte-indice: #64748b;
+    --fond-page: #0b1220;
+    --fond-clair: #111a2e;
+    --surface: #0f172a;
+    --fond-entete: rgba(15, 23, 42, 0.92);
+    --bordure: #1e293b;
+    --bordure-champ: #334155;
+
+    --fond-actif: #1e3a8a;
+    --fond-erreur: #450a0a;
+    --fond-reaction: #1e293b;
+    --fond-reaction-survol: #1e3a8a;
+    --bordure-moi: #1d4ed8;
+    --bordure-reaction: #334155;
+    --bordure-contour: #334155;
+    --accueil-halo: #172554;
+    --accueil-haut: #0b1220;
+    --accueil-bas: #0f172a;
+
+    --ombre: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --ombre-forte: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+
 /* ===== 2. Base ===== */
 
 * {
