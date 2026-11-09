@@ -106,6 +106,16 @@ async function ouvrirSalon(salon) {
     formMessage.hidden = false;
     erreurMessage.textContent = "";
 
+    // Adresse mise à jour : le salon reste ouvert après un rechargement
+    try {
+        history.replaceState(null, "", "?salon=" + salon.id);
+    } catch (erreur) {
+        console.warn("Adresse non mise à jour :", erreur);
+    }
+
+    // Téléphone : le salon s'affiche en plein écran
+    document.querySelector(".messagerie").classList.add("conversation-ouverte");
+
     // Seule la personne qui a créé le salon peut le supprimer
     boutonSupprimerSalon.hidden = salon.cree_par !== moi.id;
 
@@ -301,6 +311,7 @@ function fermerSalon(texte) {
     formMessage.hidden = true;
     boutonSupprimerSalon.hidden = true;
     listeMessages.replaceChildren(creerElement("li", "message-vide", texte));
+    document.querySelector(".messagerie").classList.remove("conversation-ouverte");
 }
 
 // Retire un salon de la liste (et le ferme s'il était ouvert)
@@ -378,6 +389,19 @@ async function demarrer() {
 
     await chargerSalons();
     ecouterSalons();
+
+    // Salon demandé dans l'adresse (ex. : salons.html?salon=3)
+    const idDemande = Number(new URLSearchParams(window.location.search).get("salon"));
+    const salonDemande = salons.find(function (s) { return s.id === idDemande; });
+
+    if (salonDemande) {
+        ouvrirSalon(salonDemande);
+    }
 }
+
+// Bouton retour (téléphone) : revient à la liste des salons
+document.getElementById("bouton-retour").addEventListener("click", function () {
+    document.querySelector(".messagerie").classList.remove("conversation-ouverte");
+});
 
 demarrer();
