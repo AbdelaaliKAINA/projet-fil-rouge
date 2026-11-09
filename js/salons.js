@@ -90,6 +90,55 @@ function afficherSalons() {
 
 
 /* ----------------------------------------------------------
+   Création d'un salon
+   ---------------------------------------------------------- */
+
+// Ajoute un salon à la liste s'il n'y est pas déjà
+function ajouterSalon(salon) {
+    if (!salons.some(function (s) { return s.id === salon.id; })) {
+        salons.push(salon);
+        trierSalons();
+        afficherSalons();
+    }
+}
+
+formSalon.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    erreurSalon.textContent = "";
+
+    const nom = champNomSalon.value.trim();
+
+    if (!nom) {
+        erreurSalon.textContent = "Entrez un nom de salon.";
+        return;
+    }
+
+    // Bouton désactivé pendant la création (évite les doublons)
+    const bouton = formSalon.querySelector("button[type='submit']");
+    bouton.disabled = true;
+
+    // cree_par n'est pas envoyé : la base le remplit avec auth.uid()
+    const { data, error } = await client
+        .from("salons")
+        .insert({ nom: nom })
+        .select(COLONNES_SALON)
+        .single();
+
+    bouton.disabled = false;
+
+    if (error) {
+        erreurSalon.textContent = error.code === "23505"
+            ? "Un salon porte déjà ce nom."
+            : messageErreur(error);
+        return;
+    }
+
+    champNomSalon.value = "";
+    ajouterSalon(data);
+});
+
+
+/* ----------------------------------------------------------
    Démarrage de la page
    ---------------------------------------------------------- */
 
