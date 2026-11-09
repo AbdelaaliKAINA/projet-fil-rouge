@@ -35,9 +35,6 @@ const DUREE_INDICATEUR_ECRITURE = 3000;  // l'indicateur disparaît après 3 s
 // Emojis proposés par le bouton 😊 de la zone d'écriture
 const EMOJIS = ["😊", "😂", "👍", "❤️", "🎉", "😮", "😢", "🙏"];
 
-// Colonnes lues pour chaque message
-const COLONNES_MESSAGE = "id, auteur, destinataire, texte, reaction, cree_le, lu_le, image";
-
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
 
@@ -100,8 +97,7 @@ function afficherListeConversations() {
 
             if (dernier) {
                 const debut = dernier.auteur === moi.id ? "Vous : " : "";
-                const contenu = dernier.texte || "📷 Image";
-                textes.appendChild(creerElement("span", "apercu-message", debut + contenu));
+                textes.appendChild(creerElement("span", "apercu-message", debut + dernier.texte));
             }
 
             lien.append(avatar, textes);
@@ -198,7 +194,7 @@ async function chargerMessages() {
 
     const { data, error } = await client
         .from("messages")
-        .select(COLONNES_MESSAGE)
+        .select("id, auteur, destinataire, texte, reaction, cree_le, lu_le")
         .or(
             "and(auteur.eq." + moi.id + ",destinataire.eq." + idContact + ")," +
             "and(auteur.eq." + idContact + ",destinataire.eq." + moi.id + ")"
@@ -391,30 +387,6 @@ function retirerMessage(id) {
     afficherListeConversations();
 }
 
-// Liens temporaires des images déjà obtenus (évite de les redemander)
-const liensImages = new Map();
-
-// Crée l'image d'un message avec un lien sécurisé valable 1 heure
-function creerImage(message) {
-    const image = creerElement("img", "image-message");
-    image.alt = "Image envoyée par " + (message.auteur === moi.id ? "moi" : contactActuel.nom);
-    image.loading = "lazy";
-
-    if (liensImages.has(message.image)) {
-        image.src = liensImages.get(message.image);
-    } else {
-        client.storage.from("images").createSignedUrl(message.image, 3600)
-            .then(function (reponse) {
-                if (reponse.data) {
-                    liensImages.set(message.image, reponse.data.signedUrl);
-                    image.src = reponse.data.signedUrl;
-                }
-            });
-    }
-
-    return image;
-}
-
 // Construit l'élément HTML d'un message
 function creerMessage(message) {
     const deMoi = message.auteur === moi.id;
@@ -439,18 +411,16 @@ function creerMessage(message) {
         heure
     );
 
-    // Bouton « Copier » : copie le texte du message (s'il y en a un)
-    if (message.texte) {
-        const copier = creerElement("button", "bouton-copier-message", "Copier");
-        copier.type = "button";
-        copier.setAttribute("aria-label", "Copier ce message");
-        copier.addEventListener("click", async function () {
-            await navigator.clipboard.writeText(message.texte);
-            copier.textContent = "Copié !";
-            setTimeout(function () { copier.textContent = "Copier"; }, 1500);
-        });
-        entete.appendChild(copier);
-    }
+    // Bouton « Copier » : copie le texte du message dans le presse-papiers
+    const copier = creerElement("button", "bouton-copier-message", "Copier");
+    copier.type = "button";
+    copier.setAttribute("aria-label", "Copier ce message");
+    copier.addEventListener("click", async function () {
+        await navigator.clipboard.writeText(message.texte);
+        copier.textContent = "Copié !";
+        setTimeout(function () { copier.textContent = "Copier"; }, 1500);
+    });
+    entete.appendChild(copier);
 
     // Bouton « Supprimer » sur mes propres messages
     if (deMoi) {
@@ -463,18 +433,9 @@ function creerMessage(message) {
         entete.appendChild(supprimer);
     }
 
-    // En-tête, puis image et texte s'ils existent, puis réactions
-    article.appendChild(entete);
+    const texte = creerTexteAvecLiens(message.texte);
 
-    if (message.image) {
-        article.appendChild(creerImage(message));
-    }
-
-    if (message.texte) {
-        article.appendChild(creerTexteAvecLiens(message.texte));
-    }
-
-    article.appendChild(creerReactions(message));
+    article.append(entete, texte, creerReactions(message));
     li.appendChild(article);
     return li;
 }
@@ -557,7 +518,7 @@ function notifier(message, idAutre) {
     }
 
     new Notification(trouverContact(idAutre).nom, {
-        body: (message.texte || "📷 Image").slice(0, 100)
+        body: message.texte.slice(0, 100)
     });
 }
 
@@ -731,149 +692,6 @@ document.addEventListener("visibilitychange", function () {
     }
 });
 
-/* ----------------------------------------------------------
-   Partage d'images (fonctionnalité secondaire)
-   ---------------------------------------------------------- */
-
-const boutonImage = document.getElementById("bouton-image");
-const fichierImage = document.getElementById("fichier-image");
-
-// Formats acceptés (même liste que dans supabase/04_images.sql)
-const TYPES_IMAGE = { "image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/webp": "webp" };
-const TAILLE_MAX_IMAGE = 5 * 1024 * 1024;   // 5 Mo
-
-// Vérifie le format et la taille avant l'envoi
-function imageValide(fichier) {
-    if (!TYPES_IMAGE[fichier.type]) {
-        alert("Format non accepté : choisissez une image PNG, JPG, GIF ou WEBP.");
-        return false;
-    }
-
-    if (fichier.size > TAILLE_MAX_IMAGE) {
-        alert("Image trop lourde : 5 Mo maximum.");
-        return false;
-    }
-
-    return true;
-}
-
-// Le bouton 📎 ouvre la fenêtre de choix de fichier
-boutonImage.addEventListener("click", function () {
-    fichierImage.click();
-});
-
-fichierImage.addEventListener("change", function () {
-    const fichier = fichierImage.files[0];
-    fichierImage.value = "";   // permet de choisir deux fois la même image
-
-    if (!fichier || !contactActuel || !imageValide(fichier)) {
-        return;
-    }
-
-    envoyerImage(fichier);
-});
-
-// Envoie l'image dans Supabase Storage, puis crée le message.
-// Le texte déjà écrit sert de légende.
-async function envoyerImage(fichier) {
-    // Dossier « auteur/destinataire » : utilisé par les règles de sécurité
-    const chemin = moi.id + "/" + contactActuel.id + "/" +
-        crypto.randomUUID() + "." + TYPES_IMAGE[fichier.type];
-
-    boutonImage.disabled = true;
-    boutonImage.textContent = "⏳";
-
-    const { error: erreurEnvoi } = await client.storage
-        .from("images")
-        .upload(chemin, fichier, { contentType: fichier.type });
-
-    let resultat = { error: erreurEnvoi };
-
-    if (!erreurEnvoi) {
-        resultat = await client
-            .from("messages")
-            .insert({
-                auteur: moi.id,
-                destinataire: contactActuel.id,
-                texte: champMessage.value.trim(),
-                image: chemin
-            })
-            .select(COLONNES_MESSAGE)
-            .single();
-    }
-
-    boutonImage.disabled = false;
-    boutonImage.textContent = "📎";
-
-    if (resultat.error) {
-        alert(messageErreur(resultat.error));
-        return;
-    }
-
-    champMessage.value = "";
-    mettreAJourCompteur();
-    recevoirMessage(resultat.data);
-}
-
-// Glisser-déposer une image sur la conversation pour l'envoyer
-const zoneConversation = document.querySelector(".conversation");
-
-zoneConversation.addEventListener("dragover", function (event) {
-    if (contactActuel) {
-        event.preventDefault();
-        zoneConversation.classList.add("depot-actif");
-    }
-});
-
-zoneConversation.addEventListener("dragleave", function () {
-    zoneConversation.classList.remove("depot-actif");
-});
-
-zoneConversation.addEventListener("drop", function (event) {
-    event.preventDefault();
-    zoneConversation.classList.remove("depot-actif");
-
-    const fichier = event.dataTransfer.files[0];
-
-    if (fichier && contactActuel && imageValide(fichier)) {
-        envoyerImage(fichier);
-    }
-});
-
-// Coller une image (Ctrl+V) dans la zone de message pour l'envoyer
-champMessage.addEventListener("paste", function (event) {
-    const fichier = Array.from(event.clipboardData.files)
-        .find(function (f) { return f.type.startsWith("image/"); });
-
-    if (fichier && contactActuel && imageValide(fichier)) {
-        event.preventDefault();
-        envoyerImage(fichier);
-    }
-});
-
-// Visionneuse : clic sur une image pour l'agrandir
-const visionneuse = document.getElementById("visionneuse");
-const imageAgrandie = document.getElementById("image-agrandie");
-
-listeMessages.addEventListener("click", function (event) {
-    if (event.target.classList.contains("image-message")) {
-        imageAgrandie.src = event.target.src;
-        imageAgrandie.alt = event.target.alt;
-        visionneuse.showModal();
-    }
-});
-
-// Fermeture : bouton ✕, clic à côté de l'image ou touche Échap (natif)
-document.getElementById("fermer-visionneuse").addEventListener("click", function () {
-    visionneuse.close();
-});
-
-visionneuse.addEventListener("click", function (event) {
-    if (event.target === visionneuse) {
-        visionneuse.close();
-    }
-});
-
 // Choix d'emoji : ouvre ou ferme la petite fenêtre
 const boutonEmoji = document.getElementById("bouton-emoji");
 const choixEmoji = document.getElementById("choix-emoji");
@@ -954,7 +772,7 @@ formMessage.addEventListener("submit", async function (event) {
     const { data, error } = await client
         .from("messages")
         .insert({ auteur: moi.id, destinataire: contactActuel.id, texte: texte })
-        .select(COLONNES_MESSAGE)
+        .select("id, auteur, destinataire, texte, reaction, cree_le, lu_le")
         .single();
 
     boutonEnvoyer.disabled = false;

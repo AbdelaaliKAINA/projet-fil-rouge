@@ -115,12 +115,6 @@
                         aria-controls="choix-emoji">😊</button>
                 <div id="choix-emoji" class="choix-emoji" role="group" aria-label="Emojis" hidden></div>
 
-                <!-- Partage d'une image (fonctionnalité secondaire) -->
-                <button type="button" id="bouton-image" class="bouton-emoji"
-                        aria-label="Envoyer une image">📎</button>
-                <input type="file" id="fichier-image" hidden
-                       accept="image/png, image/jpeg, image/gif, image/webp">
-
                 <input type="text" id="message" name="message"
                        placeholder="Écrire un message..." autocomplete="off"
                        maxlength="1000" required>
@@ -132,13 +126,6 @@
         </section>
 
     </main>
-
-    <!-- Visionneuse : image affichée en grand au clic -->
-    <dialog id="visionneuse" class="visionneuse" aria-label="Image en grand">
-        <img id="image-agrandie" alt="">
-        <button type="button" id="fermer-visionneuse" class="fermer-visionneuse"
-                aria-label="Fermer">✕</button>
-    </dialog>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
     <script src="js/config.js"></script>
