@@ -83,9 +83,111 @@ function afficherSalons() {
             lien.setAttribute("aria-current", "true");
         }
 
+        // Ouvre le salon sans recharger la page
+        lien.addEventListener("click", function (event) {
+            event.preventDefault();
+            ouvrirSalon(salon);
+        });
+
         li.appendChild(lien);
         listeSalons.appendChild(li);
     });
+}
+
+
+/* ----------------------------------------------------------
+   Salon ouvert (colonne de droite)
+   ---------------------------------------------------------- */
+
+// Ouvre un salon et charge ses derniers messages
+async function ouvrirSalon(salon) {
+    salonActuel = salon;
+    nomSalonOuvert.textContent = salon.nom;
+    formMessage.hidden = false;
+    erreurMessage.textContent = "";
+
+    afficherSalons();
+    await chargerMessages();
+    champMessage.focus();
+}
+
+// Charge les 50 derniers messages du salon ouvert
+async function chargerMessages() {
+    const idSalon = salonActuel.id;
+
+    // Les plus récents d'abord (pour garder les 50 derniers)...
+    const { data, error } = await client
+        .from("messages_salon")
+        .select(COLONNES_MESSAGE_SALON)
+        .eq("salon_id", idSalon)
+        .order("cree_le", { ascending: false })
+        .limit(NOMBRE_MESSAGES);
+
+    // Si on a changé de salon pendant le chargement, on ignore
+    if (!salonActuel || salonActuel.id !== idSalon) {
+        return;
+    }
+
+    if (error) {
+        erreurMessage.textContent = messageErreur(error);
+        return;
+    }
+
+    // ... puis remis dans l'ordre chronologique pour l'affichage
+    messages = data.reverse();
+    afficherMessages();
+}
+
+// Affiche les messages avec un séparateur à chaque nouveau jour
+function afficherMessages() {
+    listeMessages.replaceChildren();
+
+    if (messages.length === 0) {
+        listeMessages.appendChild(
+            creerElement("li", "message-vide", "Aucun message. Lancez la discussion !")
+        );
+        return;
+    }
+
+    let jourPrecedent = "";
+
+    messages.forEach(function (message) {
+        const jour = libelleJour(message.cree_le);
+
+        if (jour !== jourPrecedent) {
+            listeMessages.appendChild(creerElement("li", "separateur-date", jour));
+            jourPrecedent = jour;
+        }
+
+        listeMessages.appendChild(creerMessageSalon(message));
+    });
+
+    listeMessages.scrollTop = listeMessages.scrollHeight;
+}
+
+// Construit un message : auteur, heure, texte
+function creerMessageSalon(message) {
+    const deMoi = message.auteur === moi.id;
+
+    const li = document.createElement("li");
+    const article = creerElement("article", "message");
+
+    if (deMoi) {
+        article.classList.add("message-moi");
+    }
+
+    const heure = creerElement("time", "", formaterDate(message.cree_le));
+    heure.dateTime = message.cree_le;
+
+    const entete = creerElement("p", "message-entete");
+    entete.append(
+        creerElement("strong", "", deMoi ? "Moi" : (message.nom_auteur || "Ancien membre")),
+        heure
+    );
+
+    article.append(entete, creerTexteAvecLiens(message.texte));
+    li.appendChild(article);
+    return li;
 }
 
 
@@ -135,6 +237,7 @@ formSalon.addEventListener("submit", async function (event) {
 
     champNomSalon.value = "";
     ajouterSalon(data);
+    ouvrirSalon(data);   // le nouveau salon s'ouvre directement
 });
 
 
