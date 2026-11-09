@@ -115,6 +115,12 @@
                         aria-controls="choix-emoji">😊</button>
                 <div id="choix-emoji" class="choix-emoji" role="group" aria-label="Emojis" hidden></div>
 
+                <!-- Partage d'une image (fonctionnalité secondaire) -->
+                <button type="button" id="bouton-image" class="bouton-emoji"
+                        aria-label="Envoyer une image">📎</button>
+                <input type="file" id="fichier-image" hidden
+                       accept="image/png, image/jpeg, image/gif, image/webp">
+
                 <input type="text" id="message" name="message"
                        placeholder="Écrire un message..." autocomplete="off"
                        maxlength="1000" required>
