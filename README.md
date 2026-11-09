@@ -94,6 +94,8 @@ projet-fil-rouge/
 | `profils` | Nom et courriel de chaque compte (créé automatiquement à l'inscription) |
 | `contacts` | Invitations (`en_attente`) et contacts (`accepte`) entre deux personnes |
 | `messages` | Auteur, destinataire, texte, réaction et date d'envoi |
+| `salons` | Nom (unique) et créateur de chaque salon de groupe |
+| `messages_salon` | Messages des salons (le nom de l'auteur est rempli par la base) |
 
 **Sécurité :** les règles RLS de `supabase/schema.sql` garantissent que chaque
 personne ne lit que ses propres messages et contacts, n'écrit qu'en son nom,
@@ -107,12 +109,17 @@ est donc publique sans risque ; la clé `service_role` n'est jamais utilisée.
 | `messages_suppression` | Je supprime seulement mes propres messages |
 | `contacts_acceptation` | Seul le destinataire accepte une invitation |
 | `verifier_lecture` (trigger) | Seul le destinataire marque un message comme « Vu » |
+| `salons_lecture` / `messages_salon_lecture` | Toute personne connectée lit les salons |
+| `salons_creation` / `messages_salon_envoi` | On crée un salon ou un message seulement en son nom |
+| `salons_suppression` | Seul le créateur supprime son salon (et ses messages) |
+| `remplir_nom_auteur` (trigger) | Le nom affiché vient de la base, pas du navigateur |
 
 ## Installation
 
 1. Créer un projet sur [supabase.com](https://supabase.com).
 2. Dans **SQL Editor**, exécuter tout le fichier `supabase/schema.sql`,
-   puis `supabase/02_lecture_messages.sql` et `supabase/03_suppression_messages.sql`.
+   puis `supabase/02_lecture_messages.sql`, `supabase/03_suppression_messages.sql`
+   et `supabase/05_salons.sql` (salons de groupe).
 3. Dans **Authentication > Sign In / Providers > Email**, désactiver
    « Confirm email » (connexion directe après l'inscription).
 4. Dans **Authentication > URL Configuration**, mettre l'adresse du site
