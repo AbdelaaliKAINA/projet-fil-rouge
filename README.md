@@ -50,6 +50,8 @@ reçus en temps réel.
 - Version téléphone : liste ou conversation en plein écran avec bouton retour
 - Jauge de force du mot de passe, statistiques du compte, téléchargement des conversations
 - Bandeau hors ligne et animations réduites sur demande (accessibilité)
+- **Partage d'images** : bouton 📎, glisser-déposer ou Ctrl+V, visionneuse en grand
+  (Supabase Storage privé, 5 Mo maximum)
 
 ## Pages
 
