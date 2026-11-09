@@ -240,38 +240,6 @@ async function marquerCommeLus() {
         .is("lu_le", null);
 }
 
-// Formate la date d'un message : heure seule si c'est aujourd'hui,
-// sinon date et heure (ex. : « 22 oct., 14 h 31 »)
-function formaterDate(dateISO) {
-    const date = new Date(dateISO);
-    const heure = date.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
-
-    if (date.toDateString() === new Date().toDateString()) {
-        return heure;
-    }
-
-    const jour = date.toLocaleDateString("fr-CA", { day: "numeric", month: "short" });
-    return jour + ", " + heure;
-}
-
-// Renvoie « Aujourd'hui », « Hier » ou la date complète d'un message
-function libelleJour(dateISO) {
-    const date = new Date(dateISO);
-    const hier = new Date();
-    hier.setDate(hier.getDate() - 1);
-
-    if (date.toDateString() === new Date().toDateString()) {
-        return "Aujourd'hui";
-    }
-    if (date.toDateString() === hier.toDateString()) {
-        return "Hier";
-    }
-
-    return date.toLocaleDateString("fr-CA", {
-        weekday: "long", day: "numeric", month: "long", year: "numeric"
-    });
-}
-
 // Affiche tous les messages de la conversation ouverte
 function afficherMessages() {
     listeMessages.replaceChildren();
@@ -321,27 +289,6 @@ function afficherMessages() {
 
     // Fait défiler jusqu'au dernier message
     listeMessages.scrollTop = listeMessages.scrollHeight;
-}
-
-// Transforme les adresses web (http:// ou https://) en liens cliquables.
-// Le texte est ajouté avec textContent : aucun HTML n'est interprété.
-function creerTexteAvecLiens(texte) {
-    const paragraphe = creerElement("p", "message-texte");
-    const morceaux = texte.split(/(https?:\/\/[^\s]+)/g);
-
-    morceaux.forEach(function (morceau) {
-        if (/^https?:\/\//.test(morceau)) {
-            const lien = creerElement("a", "lien-message", morceau);
-            lien.href = morceau;
-            lien.target = "_blank";
-            lien.rel = "noopener noreferrer";
-            paragraphe.appendChild(lien);
-        } else if (morceau) {
-            paragraphe.appendChild(document.createTextNode(morceau));
-        }
-    });
-
-    return paragraphe;
 }
 
 // Supprime un de mes messages, après confirmation
