@@ -76,6 +76,7 @@ projet-fil-rouge/
 ├── css/
 │   └── style.css         Styles de toutes les pages (variables, responsive)
 ├── js/
+│   ├── theme.js          Thème clair / sombre / automatique (chargé dans le <head>)
 │   ├── config.js         Adresse et clé publique du projet Supabase
 │   ├── commun.js         Client Supabase et fonctions partagées
 │   ├── connexion.js      Connexion, inscription, mot de passe oublié
@@ -135,6 +136,16 @@ est donc publique sans risque ; la clé `service_role` n'est jamais utilisée.
 - **JavaScript** (DOM, événements, `async` / `await`)
 - **Supabase** (Auth, base PostgreSQL, Row Level Security, Realtime, Presence)
 - **GitHub Pages** pour la mise en ligne
+
+## Thème clair, sombre ou automatique
+
+1. `js/theme.js` lit le choix (`clair`, `sombre` ou `auto`) dans `localStorage`.
+2. Il pose `data-theme="clair"` ou `"sombre"` sur `<html>` ; en `auto`,
+   il suit le réglage du système (`prefers-color-scheme`), même en direct.
+3. `css/style.css` redéfinit ses variables de couleur quand `data-theme="sombre"` :
+   aucune règle n'écrit de couleur directement.
+4. Le script est chargé dans le `<head>` sans `defer`, pour éviter un
+   « flash » du thème clair avant le thème sombre.
 
 ## Accessibilité
 
