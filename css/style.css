@@ -1211,6 +1211,19 @@ input[type="checkbox"] {
     }
 }
 
+/* Image envoyée dans un message */
+.image-message {
+    display: block;
+    max-width: 260px;
+    max-height: 300px;
+    min-height: 60px;
+    margin: 8px 0;
+    border-radius: 10px;
+    background-color: var(--fond-clair);
+    object-fit: cover;
+    cursor: zoom-in;
+}
+
 /* Lien dans un message */
 .lien-message {
     color: var(--bleu-survol);
