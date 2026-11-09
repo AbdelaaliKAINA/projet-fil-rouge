@@ -287,6 +287,32 @@ formSalon.addEventListener("submit", async function (event) {
 
 
 /* ----------------------------------------------------------
+   Fermeture d'un salon
+   ---------------------------------------------------------- */
+
+// Revient à l'état « aucun salon ouvert »
+function fermerSalon(texte) {
+    salonActuel = null;
+    messages = [];
+    nomSalonOuvert.textContent = "Aucun salon ouvert";
+    formMessage.hidden = true;
+    boutonSupprimerSalon.hidden = true;
+    listeMessages.replaceChildren(creerElement("li", "message-vide", texte));
+}
+
+// Retire un salon de la liste (et le ferme s'il était ouvert)
+function retirerSalon(id) {
+    salons = salons.filter(function (s) { return s.id !== id; });
+
+    if (salonActuel && salonActuel.id === id) {
+        fermerSalon("Ce salon a été supprimé.");
+    }
+
+    afficherSalons();
+}
+
+
+/* ----------------------------------------------------------
    Temps réel
    ---------------------------------------------------------- */
 
@@ -302,6 +328,14 @@ function ecouterSalons() {
                     ajouterMessage(changement.new);
                 }
             })
+        // Un salon créé ailleurs apparaît dans la liste
+        .on("postgres_changes",
+            { event: "INSERT", schema: "public", table: "salons" },
+            function (changement) { ajouterSalon(changement.new); })
+        // Un salon supprimé disparaît
+        .on("postgres_changes",
+            { event: "DELETE", schema: "public", table: "salons" },
+            function (changement) { retirerSalon(changement.old.id); })
         .subscribe();
 }
 
