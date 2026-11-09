@@ -12,7 +12,8 @@
    9. Page Contacts
    10. Page Paramètres
    11. Responsive (téléphone)
-   12. Page introuvable (404)
+   12. Page Salons
+   13. Page introuvable (404)
    ========================================================== */
 
 
@@ -1641,7 +1642,46 @@ input.recherche-conversation {
 }
 
 
-/* ===== 12. Page introuvable (404) ===== */
+/* ===== 12. Page Salons ===== */
+
+.liste-salons {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Avatar « # » des salons */
+.avatar-salon {
+    background: var(--degrade);
+    font-size: 18px;
+}
+
+.info-salon {
+    margin: 3px 0 0;
+    color: var(--texte-doux);
+    font-size: 13px;
+}
+
+/* Bouton « Supprimer le salon » à droite de l'en-tête */
+.bouton-supprimer-salon {
+    margin-left: auto;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+/* Erreur d'envoi sous la zone d'écriture */
+.erreur-envoi {
+    min-height: 0;
+    margin: 0;
+    padding: 0 25px;
+}
+
+.erreur-envoi:not(:empty) {
+    padding-bottom: 12px;
+}
+
+
+/* ===== 13. Page introuvable (404) ===== */
 
 .page-introuvable {
     text-align: center;
