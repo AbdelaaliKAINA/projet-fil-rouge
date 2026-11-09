@@ -136,7 +136,7 @@ document.getElementById("bouton-exporter").addEventListener("click", async funct
     const lignes = data.map(function (m) {
         const date = new Date(m.cree_le).toLocaleString("fr-CA");
         return "[" + date + "] " + (noms.get(m.auteur) || "?") + " → " +
-            (noms.get(m.destinataire) || "?") + " : " + m.texte;
+            (noms.get(m.destinataire) || "?") + " : " + (m.texte || "[image]");
     });
 
     const fichier = new Blob([lignes.join("\n")], { type: "text/plain;charset=utf-8" });

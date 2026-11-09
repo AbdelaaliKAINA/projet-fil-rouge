@@ -100,7 +100,8 @@ function afficherListeConversations() {
 
             if (dernier) {
                 const debut = dernier.auteur === moi.id ? "Vous : " : "";
-                textes.appendChild(creerElement("span", "apercu-message", debut + dernier.texte));
+                const contenu = dernier.texte || "📷 Image";
+                textes.appendChild(creerElement("span", "apercu-message", debut + contenu));
             }
 
             lien.append(avatar, textes);
@@ -556,7 +557,7 @@ function notifier(message, idAutre) {
     }
 
     new Notification(trouverContact(idAutre).nom, {
-        body: message.texte.slice(0, 100)
+        body: (message.texte || "📷 Image").slice(0, 100)
     });
 }
 
