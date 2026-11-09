@@ -1261,6 +1261,12 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+/* Conversation en surbrillance pendant le glisser-déposer */
+.conversation.depot-actif {
+    outline: 3px dashed var(--bleu);
+    outline-offset: -10px;
+}
+
 /* Lien dans un message */
 .lien-message {
     color: var(--bleu-survol);
