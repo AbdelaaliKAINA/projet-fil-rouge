@@ -36,7 +36,9 @@
     --texte-doux: #64748b;
     --fond-page: #f4f7fc;
     --fond-clair: #f8fafc;
-    --blanc: #ffffff;
+    --blanc: #ffffff;           /* texte sur les boutons colorés */
+    --surface: #ffffff;         /* fond des cartes, champs et panneaux */
+    --fond-entete: rgba(255, 255, 255, 0.92);
     --bordure: #e2e8f0;
     --bordure-champ: #d5dde8;
 
@@ -140,7 +142,7 @@ a {
     gap: 20px;
     min-height: 72px;
     padding: 0 48px;
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: var(--fond-entete);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--bordure);
 }
@@ -233,7 +235,7 @@ a {
     max-width: 460px;
     margin: 50px auto;
     padding: 35px 40px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border: 1px solid var(--bordure);
     border-radius: var(--rayon-grand);
     box-shadow: var(--ombre);
@@ -267,7 +269,7 @@ select {
     padding: 12px 14px;
     border: 1px solid var(--bordure-champ);
     border-radius: var(--rayon);
-    background-color: var(--blanc);
+    background-color: var(--surface);
     color: var(--texte);
     font-size: 15px;
     font-family: inherit;
@@ -363,7 +365,7 @@ input[type="checkbox"] {
 }
 
 .bouton-secondaire {
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border-color: var(--bordure-champ);
     color: var(--texte);
 }
@@ -491,7 +493,7 @@ input[type="checkbox"] {
     height: 50px;
     flex-shrink: 0;
     border-radius: 14px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     color: var(--bleu);
     box-shadow: var(--ombre);
 }
@@ -563,7 +565,7 @@ input[type="checkbox"] {
     overflow: hidden;
     border: 8px solid #1e293b;
     border-radius: 14px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     box-shadow: var(--ombre-forte);
 }
 
@@ -667,7 +669,7 @@ input[type="checkbox"] {
     padding: 26px 10px 10px;
     border: 7px solid #1e293b;
     border-radius: 24px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     box-shadow: var(--ombre-forte);
 }
 
@@ -678,7 +680,7 @@ input[type="checkbox"] {
 /* --- Carte de connexion --- */
 .carte-connexion {
     padding: 36px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border: 1px solid var(--bordure);
     border-radius: 22px;
     box-shadow: var(--ombre-forte);
@@ -809,7 +811,7 @@ input[type="checkbox"] {
 .bouton-contour {
     width: 100%;
     padding: 13px 18px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border-color: #bfd3f5;
     color: var(--bleu-fonce);
     font-size: 16px;
@@ -929,7 +931,7 @@ input[type="checkbox"] {
     min-height: 500px;
     margin: 30px auto;
     overflow: hidden;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border-radius: var(--rayon-grand);
     box-shadow: var(--ombre);
 }
@@ -1133,7 +1135,7 @@ input[type="checkbox"] {
 .message {
     max-width: 70%;
     padding: 12px 16px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border: 1px solid var(--bordure);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
@@ -1235,7 +1237,7 @@ input[type="checkbox"] {
     height: 42px;
     border: 1px solid var(--bordure);
     border-radius: 50%;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     color: var(--bleu);
     font-size: 20px;
     box-shadow: var(--ombre);
@@ -1296,7 +1298,7 @@ input.recherche-conversation {
     gap: 12px;
     padding: 18px 25px;
     border-top: 1px solid var(--bordure);
-    background-color: var(--blanc);
+    background-color: var(--surface);
 }
 
 .form-message input {
@@ -1321,7 +1323,7 @@ input.recherche-conversation {
     grid-template-columns: repeat(4, 1fr);
     gap: 4px;
     padding: 8px;
-    background-color: var(--blanc);
+    background-color: var(--surface);
     border: 1px solid var(--bordure);
     border-radius: var(--rayon-grand);
     box-shadow: var(--ombre);
