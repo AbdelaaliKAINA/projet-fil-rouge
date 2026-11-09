@@ -102,12 +102,15 @@ est donc publique sans risque ; la clé `service_role` n'est jamais utilisée.
 | `messages_suppression` | Je supprime seulement mes propres messages |
 | `contacts_acceptation` | Seul le destinataire accepte une invitation |
 | `verifier_lecture` (trigger) | Seul le destinataire marque un message comme « Vu » |
+| `images_envoi` (Storage) | J'envoie une image seulement dans mon propre dossier |
+| `images_lecture` (Storage) | Je vois une image seulement si j'en suis l'auteur ou le destinataire |
 
 ## Installation
 
 1. Créer un projet sur [supabase.com](https://supabase.com).
 2. Dans **SQL Editor**, exécuter tout le fichier `supabase/schema.sql`,
-   puis `supabase/02_lecture_messages.sql` et `supabase/03_suppression_messages.sql`.
+   puis `supabase/02_lecture_messages.sql`, `supabase/03_suppression_messages.sql`
+   et `supabase/04_images.sql` (espace de stockage des images).
 3. Dans **Authentication > Sign In / Providers > Email**, désactiver
    « Confirm email » (connexion directe après l'inscription).
 4. Dans **Authentication > URL Configuration**, mettre l'adresse du site
