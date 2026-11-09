@@ -692,6 +692,46 @@ document.addEventListener("visibilitychange", function () {
     }
 });
 
+/* ----------------------------------------------------------
+   Partage d'images (fonctionnalité secondaire)
+   ---------------------------------------------------------- */
+
+const boutonImage = document.getElementById("bouton-image");
+const fichierImage = document.getElementById("fichier-image");
+
+// Formats acceptés (même liste que dans supabase/04_images.sql)
+const TYPES_IMAGE = { "image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/webp": "webp" };
+const TAILLE_MAX_IMAGE = 5 * 1024 * 1024;   // 5 Mo
+
+// Vérifie le format et la taille avant l'envoi
+function imageValide(fichier) {
+    if (!TYPES_IMAGE[fichier.type]) {
+        alert("Format non accepté : choisissez une image PNG, JPG, GIF ou WEBP.");
+        return false;
+    }
+
+    if (fichier.size > TAILLE_MAX_IMAGE) {
+        alert("Image trop lourde : 5 Mo maximum.");
+        return false;
+    }
+
+    return true;
+}
+
+// Le bouton 📎 ouvre la fenêtre de choix de fichier
+boutonImage.addEventListener("click", function () {
+    fichierImage.click();
+});
+
+fichierImage.addEventListener("change", function () {
+    const fichier = fichierImage.files[0];
+    fichierImage.value = "";   // permet de choisir deux fois la même image
+
+    if (!fichier || !contactActuel || !imageValide(fichier)) {
+        return;
+    }
+});
+
 // Choix d'emoji : ouvre ou ferme la petite fenêtre
 const boutonEmoji = document.getElementById("bouton-emoji");
 const choixEmoji = document.getElementById("choix-emoji");
