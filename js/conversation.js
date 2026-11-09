@@ -390,6 +390,30 @@ function retirerMessage(id) {
     afficherListeConversations();
 }
 
+// Liens temporaires des images déjà obtenus (évite de les redemander)
+const liensImages = new Map();
+
+// Crée l'image d'un message avec un lien sécurisé valable 1 heure
+function creerImage(message) {
+    const image = creerElement("img", "image-message");
+    image.alt = "Image envoyée par " + (message.auteur === moi.id ? "moi" : contactActuel.nom);
+    image.loading = "lazy";
+
+    if (liensImages.has(message.image)) {
+        image.src = liensImages.get(message.image);
+    } else {
+        client.storage.from("images").createSignedUrl(message.image, 3600)
+            .then(function (reponse) {
+                if (reponse.data) {
+                    liensImages.set(message.image, reponse.data.signedUrl);
+                    image.src = reponse.data.signedUrl;
+                }
+            });
+    }
+
+    return image;
+}
+
 // Construit l'élément HTML d'un message
 function creerMessage(message) {
     const deMoi = message.auteur === moi.id;
@@ -414,16 +438,18 @@ function creerMessage(message) {
         heure
     );
 
-    // Bouton « Copier » : copie le texte du message dans le presse-papiers
-    const copier = creerElement("button", "bouton-copier-message", "Copier");
-    copier.type = "button";
-    copier.setAttribute("aria-label", "Copier ce message");
-    copier.addEventListener("click", async function () {
-        await navigator.clipboard.writeText(message.texte);
-        copier.textContent = "Copié !";
-        setTimeout(function () { copier.textContent = "Copier"; }, 1500);
-    });
-    entete.appendChild(copier);
+    // Bouton « Copier » : copie le texte du message (s'il y en a un)
+    if (message.texte) {
+        const copier = creerElement("button", "bouton-copier-message", "Copier");
+        copier.type = "button";
+        copier.setAttribute("aria-label", "Copier ce message");
+        copier.addEventListener("click", async function () {
+            await navigator.clipboard.writeText(message.texte);
+            copier.textContent = "Copié !";
+            setTimeout(function () { copier.textContent = "Copier"; }, 1500);
+        });
+        entete.appendChild(copier);
+    }
 
     // Bouton « Supprimer » sur mes propres messages
     if (deMoi) {
@@ -436,9 +462,18 @@ function creerMessage(message) {
         entete.appendChild(supprimer);
     }
 
-    const texte = creerTexteAvecLiens(message.texte);
+    // En-tête, puis image et texte s'ils existent, puis réactions
+    article.appendChild(entete);
 
-    article.append(entete, texte, creerReactions(message));
+    if (message.image) {
+        article.appendChild(creerImage(message));
+    }
+
+    if (message.texte) {
+        article.appendChild(creerTexteAvecLiens(message.texte));
+    }
+
+    article.appendChild(creerReactions(message));
     li.appendChild(article);
     return li;
 }
