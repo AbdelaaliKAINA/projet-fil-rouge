@@ -39,6 +39,19 @@
     --blanc: #ffffff;           /* texte sur les boutons colorés */
     --surface: #ffffff;         /* fond des cartes, champs et panneaux */
     --fond-entete: rgba(255, 255, 255, 0.92);
+
+    --texte-secondaire: #334155;
+    --texte-indice: #94a3b8;
+    --fond-actif: #dbe5f1;
+    --fond-erreur: #fee2e2;
+    --fond-reaction: #f4f7fb;
+    --fond-reaction-survol: #e5edff;
+    --bordure-moi: #bfdbfe;
+    --bordure-reaction: #d8e0ea;
+    --bordure-contour: #bfd3f5;
+    --accueil-halo: #e3edff;
+    --accueil-haut: #f7faff;
+    --accueil-bas: #eaf1fd;
     --bordure: #e2e8f0;
     --bordure-champ: #d5dde8;
 
@@ -102,7 +115,7 @@ a {
     z-index: 100;
     padding: 10px 16px;
     border-radius: var(--rayon);
-    background-color: var(--bleu-fonce);
+    background-color: var(--bleu-survol);
     color: var(--blanc);
     font-weight: 600;
 }
@@ -195,7 +208,7 @@ a {
     gap: 8px;
     padding: 10px 14px;
     border-radius: var(--rayon);
-    color: #334155;
+    color: var(--texte-secondaire);
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
@@ -277,7 +290,7 @@ select {
 }
 
 input::placeholder {
-    color: #94a3b8;
+    color: var(--texte-indice);
 }
 
 input:focus,
@@ -407,8 +420,8 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     background:
-        radial-gradient(circle at 15% 20%, #e3edff 0, transparent 45%),
-        linear-gradient(180deg, #f7faff 0%, #eaf1fd 100%);
+        radial-gradient(circle at 15% 20%, var(--accueil-halo) 0, transparent 45%),
+        linear-gradient(180deg, var(--accueil-haut) 0%, var(--accueil-bas) 100%);
     overflow-x: hidden;
 }
 
@@ -467,7 +480,7 @@ input[type="checkbox"] {
 
 .sous-titre {
     margin: 0 0 32px;
-    color: #334155;
+    color: var(--texte-secondaire);
     font-size: 18px;
     line-height: 1.6;
 }
@@ -527,7 +540,7 @@ input[type="checkbox"] {
     position: absolute;
     inset: 20px 10px;
     border-radius: 50%;
-    background: radial-gradient(circle, #dbe8ff 0%, rgba(219, 232, 255, 0) 70%);
+    background: radial-gradient(circle, var(--accueil-halo) 0%, transparent 70%);
 }
 
 .bulle-flottante {
@@ -626,7 +639,7 @@ input[type="checkbox"] {
     margin: 0;
     padding: 6px 9px;
     border-radius: 10px;
-    background-color: #eef2f7;
+    background-color: var(--fond-reaction);
     font-size: 9px;
 }
 
@@ -804,7 +817,7 @@ input[type="checkbox"] {
 
 .question-compte {
     margin: 0 0 12px;
-    color: #334155;
+    color: var(--texte-secondaire);
     text-align: center;
 }
 
@@ -812,7 +825,7 @@ input[type="checkbox"] {
     width: 100%;
     padding: 13px 18px;
     background-color: var(--surface);
-    border-color: #bfd3f5;
+    border-color: var(--bordure-contour);
     color: var(--bleu-fonce);
     font-size: 16px;
 }
@@ -872,7 +885,7 @@ input[type="checkbox"] {
     gap: 8px;
     margin: 0;
     padding: 0 16px 28px;
-    color: #334155;
+    color: var(--texte-secondaire);
     font-size: 14px;
 }
 
@@ -1007,7 +1020,7 @@ input[type="checkbox"] {
 }
 
 .lien-conversation.active {
-    background-color: #dbe5f1;
+    background-color: var(--fond-actif);
     color: var(--bleu-fonce);
 }
 
@@ -1145,7 +1158,7 @@ input[type="checkbox"] {
 .message-moi {
     margin-left: auto;
     background-color: var(--bleu-clair);
-    border-color: #bfdbfe;
+    border-color: var(--bordure-moi);
     border-right: 4px solid var(--bleu);
 }
 
@@ -1367,15 +1380,15 @@ input.recherche-conversation {
 
 .bouton-reaction {
     padding: 4px 9px;
-    border: 1px solid #d8e0ea;
+    border: 1px solid var(--bordure-reaction);
     border-radius: 18px;
-    background-color: #f4f7fb;
+    background-color: var(--fond-reaction);
     font-size: 15px;
     cursor: pointer;
 }
 
 .bouton-reaction:hover {
-    background-color: #e5edff;
+    background-color: var(--fond-reaction-survol);
 }
 
 /* Réaction choisie */
@@ -1542,7 +1555,7 @@ input.recherche-conversation {
 .bandeau-erreur {
     margin: 0;
     padding: 14px 20px;
-    background-color: #fee2e2;
+    background-color: var(--fond-erreur);
     color: var(--rouge-survol);
     font-weight: 600;
     text-align: center;
