@@ -287,6 +287,26 @@ formSalon.addEventListener("submit", async function (event) {
 
 
 /* ----------------------------------------------------------
+   Temps réel
+   ---------------------------------------------------------- */
+
+// Abonnement aux changements des salons et de leurs messages
+function ecouterSalons() {
+    client
+        .channel("salons-" + moi.id)
+        .on("postgres_changes",
+            { event: "INSERT", schema: "public", table: "messages_salon" },
+            function (changement) {
+                // On n'affiche que les messages du salon ouvert
+                if (salonActuel && changement.new.salon_id === salonActuel.id) {
+                    ajouterMessage(changement.new);
+                }
+            })
+        .subscribe();
+}
+
+
+/* ----------------------------------------------------------
    Démarrage de la page
    ---------------------------------------------------------- */
 
@@ -298,6 +318,7 @@ async function demarrer() {
     }
 
     await chargerSalons();
+    ecouterSalons();
 }
 
 demarrer();
