@@ -35,6 +35,9 @@ const DUREE_INDICATEUR_ECRITURE = 3000;  // l'indicateur disparaît après 3 s
 // Emojis proposés par le bouton 😊 de la zone d'écriture
 const EMOJIS = ["😊", "😂", "👍", "❤️", "🎉", "😮", "😢", "🙏"];
 
+// Colonnes lues pour chaque message
+const COLONNES_MESSAGE = "id, auteur, destinataire, texte, reaction, cree_le, lu_le, image";
+
 // Réactions proposées sous chaque message
 const REACTIONS = ["👍", "❤️", "😂"];
 
@@ -194,7 +197,7 @@ async function chargerMessages() {
 
     const { data, error } = await client
         .from("messages")
-        .select("id, auteur, destinataire, texte, reaction, cree_le, lu_le")
+        .select(COLONNES_MESSAGE)
         .or(
             "and(auteur.eq." + moi.id + ",destinataire.eq." + idContact + ")," +
             "and(auteur.eq." + idContact + ",destinataire.eq." + moi.id + ")"
@@ -730,7 +733,51 @@ fichierImage.addEventListener("change", function () {
     if (!fichier || !contactActuel || !imageValide(fichier)) {
         return;
     }
+
+    envoyerImage(fichier);
 });
+
+// Envoie l'image dans Supabase Storage, puis crée le message.
+// Le texte déjà écrit sert de légende.
+async function envoyerImage(fichier) {
+    // Dossier « auteur/destinataire » : utilisé par les règles de sécurité
+    const chemin = moi.id + "/" + contactActuel.id + "/" +
+        crypto.randomUUID() + "." + TYPES_IMAGE[fichier.type];
+
+    boutonImage.disabled = true;
+    boutonImage.textContent = "⏳";
+
+    const { error: erreurEnvoi } = await client.storage
+        .from("images")
+        .upload(chemin, fichier, { contentType: fichier.type });
+
+    let resultat = { error: erreurEnvoi };
+
+    if (!erreurEnvoi) {
+        resultat = await client
+            .from("messages")
+            .insert({
+                auteur: moi.id,
+                destinataire: contactActuel.id,
+                texte: champMessage.value.trim(),
+                image: chemin
+            })
+            .select(COLONNES_MESSAGE)
+            .single();
+    }
+
+    boutonImage.disabled = false;
+    boutonImage.textContent = "📎";
+
+    if (resultat.error) {
+        alert(messageErreur(resultat.error));
+        return;
+    }
+
+    champMessage.value = "";
+    mettreAJourCompteur();
+    recevoirMessage(resultat.data);
+}
 
 // Choix d'emoji : ouvre ou ferme la petite fenêtre
 const boutonEmoji = document.getElementById("bouton-emoji");
@@ -812,7 +859,7 @@ formMessage.addEventListener("submit", async function (event) {
     const { data, error } = await client
         .from("messages")
         .insert({ auteur: moi.id, destinataire: contactActuel.id, texte: texte })
-        .select("id, auteur, destinataire, texte, reaction, cree_le, lu_le")
+        .select(COLONNES_MESSAGE)
         .single();
 
     boutonEnvoyer.disabled = false;
