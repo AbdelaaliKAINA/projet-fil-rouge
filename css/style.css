@@ -1224,6 +1224,43 @@ input[type="checkbox"] {
     cursor: zoom-in;
 }
 
+/* Visionneuse d'image en plein écran */
+.visionneuse {
+    max-width: 92vw;
+    max-height: 92vh;
+    padding: 0;
+    border: none;
+    border-radius: var(--rayon-grand);
+    background: none;
+    overflow: visible;
+}
+
+.visionneuse::backdrop {
+    background-color: rgba(15, 23, 42, 0.8);
+}
+
+.visionneuse img {
+    display: block;
+    max-width: 92vw;
+    max-height: 92vh;
+    border-radius: var(--rayon-grand);
+}
+
+.fermer-visionneuse {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--blanc);
+    color: var(--texte);
+    font-size: 16px;
+    box-shadow: var(--ombre);
+    cursor: pointer;
+}
+
 /* Lien dans un message */
 .lien-message {
     color: var(--bleu-survol);
