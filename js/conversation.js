@@ -840,6 +840,17 @@ zoneConversation.addEventListener("drop", function (event) {
     }
 });
 
+// Coller une image (Ctrl+V) dans la zone de message pour l'envoyer
+champMessage.addEventListener("paste", function (event) {
+    const fichier = Array.from(event.clipboardData.files)
+        .find(function (f) { return f.type.startsWith("image/"); });
+
+    if (fichier && contactActuel && imageValide(fichier)) {
+        event.preventDefault();
+        envoyerImage(fichier);
+    }
+});
+
 // Visionneuse : clic sur une image pour l'agrandir
 const visionneuse = document.getElementById("visionneuse");
 const imageAgrandie = document.getElementById("image-agrandie");
