@@ -1564,7 +1564,10 @@ input.recherche-conversation {
         font-size: 20px;
     }
 
+    /* Menu sur deux lignes si besoin (4 liens) */
     .entete nav {
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 4px;
     }
 
