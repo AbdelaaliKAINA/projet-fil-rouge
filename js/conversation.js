@@ -814,6 +814,29 @@ async function envoyerImage(fichier) {
     recevoirMessage(resultat.data);
 }
 
+// Visionneuse : clic sur une image pour l'agrandir
+const visionneuse = document.getElementById("visionneuse");
+const imageAgrandie = document.getElementById("image-agrandie");
+
+listeMessages.addEventListener("click", function (event) {
+    if (event.target.classList.contains("image-message")) {
+        imageAgrandie.src = event.target.src;
+        imageAgrandie.alt = event.target.alt;
+        visionneuse.showModal();
+    }
+});
+
+// Fermeture : bouton ✕, clic à côté de l'image ou touche Échap (natif)
+document.getElementById("fermer-visionneuse").addEventListener("click", function () {
+    visionneuse.close();
+});
+
+visionneuse.addEventListener("click", function (event) {
+    if (event.target === visionneuse) {
+        visionneuse.close();
+    }
+});
+
 // Choix d'emoji : ouvre ou ferme la petite fenêtre
 const boutonEmoji = document.getElementById("bouton-emoji");
 const choixEmoji = document.getElementById("choix-emoji");
