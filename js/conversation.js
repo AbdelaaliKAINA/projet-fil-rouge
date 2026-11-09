@@ -815,6 +815,31 @@ async function envoyerImage(fichier) {
     recevoirMessage(resultat.data);
 }
 
+// Glisser-déposer une image sur la conversation pour l'envoyer
+const zoneConversation = document.querySelector(".conversation");
+
+zoneConversation.addEventListener("dragover", function (event) {
+    if (contactActuel) {
+        event.preventDefault();
+        zoneConversation.classList.add("depot-actif");
+    }
+});
+
+zoneConversation.addEventListener("dragleave", function () {
+    zoneConversation.classList.remove("depot-actif");
+});
+
+zoneConversation.addEventListener("drop", function (event) {
+    event.preventDefault();
+    zoneConversation.classList.remove("depot-actif");
+
+    const fichier = event.dataTransfer.files[0];
+
+    if (fichier && contactActuel && imageValide(fichier)) {
+        envoyerImage(fichier);
+    }
+});
+
 // Visionneuse : clic sur une image pour l'agrandir
 const visionneuse = document.getElementById("visionneuse");
 const imageAgrandie = document.getElementById("image-agrandie");
