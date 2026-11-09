@@ -192,6 +192,51 @@ function creerMessageSalon(message) {
 
 
 /* ----------------------------------------------------------
+   Envoi d'un message dans le salon
+   ---------------------------------------------------------- */
+
+// Ajoute un message s'il n'est pas déjà affiché (évite les doublons)
+function ajouterMessage(message) {
+    if (!messages.some(function (m) { return m.id === message.id; })) {
+        messages.push(message);
+        afficherMessages();
+    }
+}
+
+formMessage.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    erreurMessage.textContent = "";
+
+    const texte = champMessage.value.trim();
+
+    if (!texte || !salonActuel) {
+        return;
+    }
+
+    champMessage.value = "";
+    boutonEnvoyer.disabled = true;
+
+    // auteur et nom_auteur sont remplis par la base
+    const { data, error } = await client
+        .from("messages_salon")
+        .insert({ salon_id: salonActuel.id, texte: texte })
+        .select(COLONNES_MESSAGE_SALON)
+        .single();
+
+    boutonEnvoyer.disabled = false;
+
+    if (error) {
+        champMessage.value = texte;   // on rend le texte pour réessayer
+        erreurMessage.textContent = messageErreur(error);
+        return;
+    }
+
+    ajouterMessage(data);
+    champMessage.focus();
+});
+
+
+/* ----------------------------------------------------------
    Création d'un salon
    ---------------------------------------------------------- */
 
